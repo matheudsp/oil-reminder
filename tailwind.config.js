@@ -2,13 +2,15 @@ const gluestackPlugin = require('@gluestack-ui/nativewind-utils/tailwind-plugin'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: process.env.DARK_MODE ? process.env.DARK_MODE : 'media',
-  content: [
-    './app/**/*.{html,js,jsx,ts,tsx}',
-    './app/**/**/*.{html,js,jsx,ts,tsx}',
-    './app/components/**/*.{html,js,jsx,ts,tsx,mdx}',
-    './app/hooks/**/*.{html,js,jsx,ts,tsx,mdx}',
-  ],
+  darkMode: "class",
+  content:
+    [
+      "./app/**/*.{tsx,jsx,ts,js}",
+      "./components/**/*.{tsx,jsx,ts,js}",
+      "./app/components/screens/**/*.{tsx,jsx,ts,js}",
+      "./app/components/screens/***/**/*.{tsx,jsx,ts,js}",
+
+    ],
   presets: [require('nativewind/preset')],
   safelist: [
     {
@@ -54,6 +56,24 @@ module.exports = {
           700: 'rgb(var(--color-accent-700)/<alpha-value>)',
           800: 'rgb(var(--color-accent-800)/<alpha-value>)',
           900: 'rgb(var(--color-accent-900)/<alpha-value>)',
+        },
+
+        typography: {
+          0: "rgb(var(--color-typography-0)/<alpha-value>)",
+          50: "rgb(var(--color-typography-50)/<alpha-value>)",
+          100: "rgb(var(--color-typography-100)/<alpha-value>)",
+          200: "rgb(var(--color-typography-200)/<alpha-value>)",
+          300: "rgb(var(--color-typography-300)/<alpha-value>)",
+          400: "rgb(var(--color-typography-400)/<alpha-value>)",
+          500: "rgb(var(--color-typography-500)/<alpha-value>)",
+          600: "rgb(var(--color-typography-600)/<alpha-value>)",
+          700: "rgb(var(--color-typography-700)/<alpha-value>)",
+          800: "rgb(var(--color-typography-800)/<alpha-value>)",
+          900: "rgb(var(--color-typography-900)/<alpha-value>)",
+          950: "rgb(var(--color-typography-950)/<alpha-value>)",
+          white: "#FFFFFF",
+          gray: "#D4D4D4",
+          black: "#181718",
         },
       },
     },

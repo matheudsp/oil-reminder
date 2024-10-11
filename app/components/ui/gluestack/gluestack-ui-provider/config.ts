@@ -1,4 +1,5 @@
-import { vars } from 'nativewind';
+"use client";
+import { vars } from "nativewind";
 
 export const config = {
   light: vars({
@@ -74,5 +75,19 @@ export const config = {
     '--color-accent-700': '245 119 10',
     '--color-accent-800': '239 103 0',
     '--color-accent-900': '230 70 0',
+
+    /* Typography */
+    "--color-typography-0": "254 254 255",
+    "--color-typography-50": "245 245 245",
+    "--color-typography-100": "229 229 229",
+    "--color-typography-200": "219 219 220",
+    "--color-typography-300": "212 212 212",
+    "--color-typography-400": "163 163 163",
+    "--color-typography-500": "140 140 140",
+    "--color-typography-600": "115 115 115",
+    "--color-typography-700": "82 82 82",
+    "--color-typography-800": "64 64 64",
+    "--color-typography-900": "38 38 39",
+    "--color-typography-950": "23 23 23",
   }),
 };

@@ -1,6 +1,6 @@
 import { useFonts } from 'expo-font';
 import '@/global.css'
-import { GluestackUIProvider } from '@/components/ui/gluestack/gluestack-ui-provider';
+import { GluestackUIProvider } from '@/app/components/ui/gluestack/gluestack-ui-provider';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';

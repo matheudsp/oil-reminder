@@ -1,5 +1,5 @@
 
-import HomePage from '@/components/screens/Home/home';
+import HomePage from '@/app/components/screens/Home/home';
 import { SafeAreaView } from 'react-native';
 
 

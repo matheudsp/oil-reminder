@@ -1,7 +1,7 @@
 import { StyleSheet, Pressable } from 'react-native'
 import Animated from 'react-native-reanimated'
 import React, { useEffect } from 'react'
-import { icon } from '@/components/constants/icon'
+import { icon } from '@/app/components/constants/icon'
 import { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 const TabBarButton = ({
