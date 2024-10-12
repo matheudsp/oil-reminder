@@ -6,9 +6,12 @@ import { StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+    
     const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
-    const buttonWidth = dimensions.width / state.routes.length;
-
+    const excludedRoutes = ['vehicle'];
+    const buttonWidth = dimensions.width / (state.routes.length - excludedRoutes.length)
+    
+    
     const onTabbarLayout = (e: LayoutChangeEvent) => {
         setDimensions({
             height: e.nativeEvent.layout.height,
@@ -18,9 +21,9 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 
     const tabPositionX = useSharedValue(0);
 
-    // Atualiza tabPositionX sempre que a rota muda
+    
     useEffect(() => {
-        tabPositionX.value = withSpring(buttonWidth * state.index, { duration: 1200 });
+        tabPositionX.value = withSpring(buttonWidth * state.index, { duration: 1500 });
     }, [state.index, buttonWidth]);
 
     const animatedStyle = useAnimatedStyle(() => {
@@ -29,11 +32,15 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         };
     });
 
-    // Verifique a rota ativa para não renderizar o TabBar na tela "Add"
+    
+    
+    
     const currentRoute = state.routes[state.index].name;
-    if (currentRoute === 'add') {
-        return null; // Não renderiza o TabBar na tela "Add"
+    if (currentRoute === 'add' || currentRoute === 'vehicle') {
+        return null; 
     }
+
+    
 
     return (
         <View onLayout={onTabbarLayout} style={styles.tabbar}>
@@ -42,7 +49,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                     animatedStyle,
                     {
                         position: 'absolute',
-                        backgroundColor: "#723FEB",
+                        backgroundColor: "rgb(33 150 243)",
                         borderRadius: 30,
                         marginHorizontal: 12,
                         height: dimensions.height - 15,
@@ -82,6 +89,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                 };
 
                 return (
+                    !excludedRoutes.includes(route.name) && (
                     <TabBarButton
                         key={route.name}
                         onPress={onPress}
@@ -91,6 +99,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         color={isFocused ? '#FFF' : '#222'}
                         label={label}
                     />
+                )
                 );
             })}
         </View>

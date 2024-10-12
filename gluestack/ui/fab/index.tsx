@@ -105,6 +105,7 @@ const fabStyle = tva({
       sm: 'px-2.5 py-2.5',
       md: 'px-3 py-3',
       lg: 'px-4 py-4',
+      xl:'px-4 py-4'
     },
     placement: {
       'top right': 'top-4 right-4',
@@ -160,6 +161,7 @@ const fabLabelStyle = tva({
       sm: 'text-sm',
       md: 'text-base',
       lg: 'text-lg',
+      xl:'text-xl'
     },
   },
 });
@@ -174,6 +176,7 @@ const fabIconStyle = tva({
       'md': 'w-[18px] h-[18px]',
       'lg': 'h-5 w-5',
       'xl': 'h-6 w-6',
+      '2xl': 'h-8 w-8',
     },
   },
 });

@@ -1,13 +1,14 @@
 
-import HomePage from '@/app/components/screens/Home/home';
+
 import { SafeAreaView } from 'react-native';
+import Vehicle from '../components/screens/Vehicle/Vehicle';
 import Layout from '../components/ui/Layout';
 
 
-export default function index() {
+export default function vehicle() {
   return (
     <Layout>
-      <HomePage />
+      <Vehicle />
     </Layout>
   );
 }
