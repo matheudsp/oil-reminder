@@ -95,10 +95,10 @@ const inputStyle = tva({
 
   variants: {
     size: {
-      xl: 'h-12',
-      lg: 'h-11',
-      md: 'h-10',
-      sm: 'h-9',
+      xl: 'h-16',
+      lg: 'h-14',
+      md: 'h-12',
+      sm: 'h-10',
     },
 
     variant: {
@@ -124,6 +124,7 @@ const inputIconStyle = tva({
       'md': 'h-[18px] w-[18px]',
       'lg': 'h-5 w-5',
       'xl': 'h-6 w-6',
+      '2xl': 'h-7 w-7',
     },
   },
 });

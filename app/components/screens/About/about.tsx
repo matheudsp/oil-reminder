@@ -1,6 +1,6 @@
-import { Box } from '@/app/components/ui/gluestack/box';
+import { Box } from '@/gluestack/ui/box';
 
-import { Text } from '@/app/components/ui/gluestack/text'
+import { Text } from '@/gluestack/ui/text'
 
 export default function AboutPage() {
   return (

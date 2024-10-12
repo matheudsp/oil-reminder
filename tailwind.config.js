@@ -6,7 +6,7 @@ module.exports = {
   content:
     [
       "./app/**/*.{tsx,jsx,ts,js}",
-      "./components/**/*.{tsx,jsx,ts,js}",
+      "./gluestack/**/*.{tsx,jsx,ts,js}",
       "./app/components/screens/**/*.{tsx,jsx,ts,js}",
       "./app/components/screens/***/**/*.{tsx,jsx,ts,js}",
 

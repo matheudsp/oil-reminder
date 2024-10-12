@@ -1,9 +1,9 @@
 
 import React from 'react'
-import { Text} from '@/app/components/ui/gluestack/text'
-import { Box } from '@/app/components/ui/gluestack/box'
+import { Text } from '@/gluestack/ui/text'
+import { Box } from '@/gluestack/ui/box'
 import { SearchIcon } from 'lucide-react-native'
-import { Input, InputField, InputIcon, InputSlot } from '@/app/components/ui/gluestack/input'
+import { Input, InputField, InputIcon, InputSlot } from '@/gluestack/ui/input'
 
 const Header = () => {
     return (

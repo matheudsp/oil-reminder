@@ -1,11 +1,17 @@
 import AddPage from '@/app/components/screens/Add/Add';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Layout from '../components/ui/Layout';
+
+
+
 
 export default function add() {
+  
   return (
-    <SafeAreaView>
-      <AddPage />
-    </SafeAreaView>
+    
+      <Layout>
+        <AddPage />
+      </Layout>
+    
   );
 }
 

@@ -2,7 +2,7 @@ const { getDefaultConfig } = require('expo/metro-config');
 const { withNativeWind } = require('nativewind/metro');
 
 module.exports = (async () => {
-  const defaultConfig = await getDefaultConfig(__dirname,{isCSSEnabled:true});
+  const defaultConfig = await getDefaultConfig(__dirname);
 
   return withNativeWind({
     ...defaultConfig,
@@ -15,6 +15,5 @@ module.exports = (async () => {
     },
   }, {
     input: './global.css',
-    inlineRem:16,
   });
 })();
