@@ -8,6 +8,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { VehicleProvider } from './components/contexts/VehicleContext';
 
 
 
@@ -31,9 +32,11 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider mode="light">
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <VehicleProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </VehicleProvider>
     </GluestackUIProvider>
   );
 }

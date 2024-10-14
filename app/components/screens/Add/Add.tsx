@@ -7,7 +7,7 @@ import { Heading } from '@/gluestack/ui/heading';
 import { FormControl } from '@/gluestack/ui/form-control';
 import { Input, InputField, InputIcon, InputSlot } from '@/gluestack/ui/input';
 import { VStack } from '@/gluestack/ui/vstack';
-import { ArrowDownUp, Bike, Camera, Car, CarFront, Droplets, Focus, Images, Truck } from 'lucide-react-native';
+import { ArrowDownUp, Bike, Camera, Car, CarFront, CircleAlert, CircleX, Droplets, Focus, Images, Truck } from 'lucide-react-native';
 import { Icon } from '@/gluestack/ui/icon';
 import { HStack } from '@/gluestack/ui/hstack';
 import { Center } from '@/gluestack/ui/center';
@@ -18,6 +18,9 @@ import { Actionsheet, ActionsheetBackdrop, ActionsheetContent, ActionsheetIcon, 
 import { Button, ButtonIcon, ButtonText } from '@/gluestack/ui/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import { useVehicleContext } from '../../contexts/VehicleContext';
+import { Toast, ToastDescription, ToastTitle, useToast } from '@/gluestack/ui/toast';
+import { Divider } from '@/gluestack/ui/divider';
 
 const vehicleTypes = [
     {
@@ -41,20 +44,69 @@ export default function AddPage() {
     const [odometerReading, setOdometerReading] = useState<string>('');
     const [oilChangeInterval, setOilChangeInterval] = useState<string>('');
     const router = useRouter();
-
+    const toast = useToast()
+    const { loadVehicles } = useVehicleContext();
     useEffect(() => {
         (async () => {
             const { status } = await ImagePicker.requestCameraPermissionsAsync();
             if (status !== 'granted') {
-                Alert.alert('Permissão necessária', 'Precisamos da permissão para acessar a câmera.');
+                toast.show({
+                    placement: "top",
+                    render: ({ id }) => {
+                        const toastId = "toast-" + id
+                        return (
+                            <Toast
+                                nativeID={toastId}
+                                className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
+                            >
+
+                                <Icon
+                                    as={CircleAlert}
+                                    size="xl"
+                                    className="stroke-secondary-200"
+                                />
+                                <Divider
+                                    orientation="vertical"
+                                    className="h-[30px] bg-secondary-200"
+                                />
+                                <ToastTitle size="md" className='text-secondary-200'>We need permission to access the camera.</ToastTitle>
+                            </Toast>
+                        )
+                    }
+                })
             }
 
             const mediaStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
             if (mediaStatus.status !== 'granted') {
-                Alert.alert('Permissão necessária', 'Precisamos da permissão para acessar a galeria.');
+                toast.show({
+                    placement: "top",
+                    render: ({ id }) => {
+                        const toastId = "toast-" + id
+                        return (
+                            <Toast
+                                nativeID={toastId}
+                                className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
+                            >
+
+                                <Icon
+                                    as={CircleAlert}
+                                    size="xl"
+                                    className="stroke-secondary-200"
+                                />
+                                <Divider
+                                    orientation="vertical"
+                                    className="h-[30px] bg-secondary-200"
+                                />
+                                <ToastTitle size="md" className='text-secondary-200'>We need permission to access the gallery.</ToastTitle>
+                            </Toast>
+                        )
+                    }
+                })
             }
         })();
     }, []);
+
+
 
     const pickImage = async (fromCamera: boolean) => {
         try {
@@ -82,7 +134,30 @@ export default function AddPage() {
 
     const handleAddVehicle = async () => {
         if (!vehicleName || !odometerReading || !oilChangeInterval) {
-            Alert.alert('Erro', 'Preencha os campos antes de adicionar.');
+            toast.show({
+                placement: "top",
+                render: ({ id }) => {
+                    const toastId = "toast-" + id
+                    return (
+                        <Toast
+                            nativeID={toastId}
+                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
+                        >
+
+                            <Icon
+                                as={CircleAlert}
+                                size="xl"
+                                className="stroke-secondary-200"
+                            />
+                            <Divider
+                                orientation="vertical"
+                                className="h-[30px] bg-secondary-200"
+                            />
+                            <ToastTitle size="md" className='text-secondary-200'>Preencha os campos antes de adicionar.</ToastTitle>
+                        </Toast>
+                    )
+                }
+            })
             return;
         }
 
@@ -100,11 +175,60 @@ export default function AddPage() {
             vehiclesArray.push(vehicleData);
 
             await AsyncStorage.setItem('@vehicles', JSON.stringify(vehiclesArray));
+            await loadVehicles();
             router.push('/(tabs)/')
-            Alert.alert('Sucesso', 'Veículo adicionado com sucesso!');
+
+            toast.show({
+                placement: "top",
+                render: ({ id }) => {
+                    const toastId = "toast-" + id
+                    return (
+                        <Toast
+                            nativeID={toastId}
+                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
+                        >
+
+                            <Icon
+                                as={CircleAlert}
+                                size="xl"
+                                className="stroke-secondary-200"
+                            />
+                            <Divider
+                                orientation="vertical"
+                                className="h-[30px] bg-secondary-200"
+                            />
+                            <ToastTitle size="md" className='text-secondary-200'>Vehicle added successfully!</ToastTitle>
+                        </Toast>
+                    )
+                }
+            })
+
         } catch (error) {
-            console.error('Erro ao salvar os dados', error);
-            Alert.alert('Erro', 'Não foi possível salvar as informações do veículo.');
+            console.error('Failed to save data', error);
+            toast.show({
+                placement: "top",
+                render: ({ id }) => {
+                    const toastId = "toast-" + id
+                    return (
+                        <Toast
+                            nativeID={toastId}
+                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
+                        >
+
+                            <Icon
+                                as={CircleAlert}
+                                size="xl"
+                                className="stroke-secondary-200"
+                            />
+                            <Divider
+                                orientation="vertical"
+                                className="h-[30px] bg-secondary-200"
+                            />
+                            <ToastTitle size="md" className='text-secondary-200'>Unable to save vehicle information.</ToastTitle>
+                        </Toast>
+                    )
+                }
+            })
         }
 
         setVehicleName('')
