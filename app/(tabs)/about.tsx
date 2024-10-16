@@ -1,11 +1,12 @@
 import AboutPage from '@/app/components/screens/About/about';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
+import Layout from '../components/ui/Layout';
 
 export default function about() {
   return (
-    <SafeAreaView>
+    <Layout>
       <AboutPage />
-    </SafeAreaView>
+    </Layout>
   );
 }
 

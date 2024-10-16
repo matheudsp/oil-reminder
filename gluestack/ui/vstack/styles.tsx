@@ -17,6 +17,8 @@ export const vstackStyle = tva({
       '2xl': 'gap-6',
       '3xl': 'gap-7',
       '4xl': 'gap-8',
+      '5xl': 'gap-9',
+      '6xl': 'gap-10'
     },
     reversed: {
       true: 'flex-col-reverse',

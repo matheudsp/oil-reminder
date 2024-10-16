@@ -1,12 +1,12 @@
 import { Box } from '@/gluestack/ui/box';
 import { Text } from '@/gluestack/ui/text';
 import Header from './Header/Header';
-import { ScrollView, Image, RefreshControl } from 'react-native';
+import { ScrollView, Image, RefreshControl, Vibration } from 'react-native';
 import { useEffect, useState } from 'react';
 import { VStack } from '@/gluestack/ui/vstack';
 import { HStack } from '@/gluestack/ui/hstack';
 import { Icon } from '@/gluestack/ui/icon';
-import { Car, Bike, Truck, ArrowRightFromLineIcon, Trash } from 'lucide-react-native';
+import { Car, Bike, Truck, ArrowRightFromLineIcon, Trash, CarFront } from 'lucide-react-native';
 import { Pressable } from '@/gluestack/ui/pressable';
 import { Badge, BadgeIcon, BadgeText } from '@/gluestack/ui/badge';
 import AnimatedRadioButton from '../../ui/RadioAnimated';
@@ -14,12 +14,26 @@ import { Fab, FabIcon } from '@/gluestack/ui/fab';
 import { Link } from 'expo-router';
 import { useVehicleContext } from '../../contexts/VehicleContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Center } from '@/gluestack/ui/center';
+import { Button } from '@/gluestack/ui/button';
+import * as Haptics from 'expo-haptics';
+import { Divider } from '@/gluestack/ui/divider';
 
 export default function HomePage() {
   const { vehicles, loadVehicles } = useVehicleContext();
   const [selectedVehicles, setSelectedVehicles] = useState<Set<number>>(new Set());
   const [isSelecting, setIsSelecting] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicles)
+
+  useEffect(() => {
+    setFilteredVehicles(
+      vehicles.filter(vehicle =>
+        vehicle.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  }, [searchQuery, vehicles]);
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -61,30 +75,48 @@ export default function HomePage() {
     const updatedVehicles = vehicles.filter((_, index) => !selectedVehicles.has(index));
     setSelectedVehicles(new Set());
     setIsSelecting(false);
-    
+
     await AsyncStorage.setItem('@vehicles', JSON.stringify(updatedVehicles));
 
-    
+
     await loadVehicles();
   };
 
   return (
-    <Box className="h-full w-full">
-      <Header allowMultipleSelect={allowMultipleSelect} isSelecting={isSelecting} />
+    <Box  className="h-full w-full">
+      <Header
+        allowMultipleSelect={allowMultipleSelect}
+        isSelecting={isSelecting}
+        setSearchQuery={setSearchQuery} />
 
-      <ScrollView 
-        showsVerticalScrollIndicator={false} 
+      <ScrollView
+        showsVerticalScrollIndicator={false}
         className='h-full'
+        keyboardShouldPersistTaps="handled"
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }
       >
-        <VStack space="xl" className='px-4 pb-32'>
-          {vehicles.length > 0 ? (
-            vehicles.map((vehicle, index) => (
-              <Link key={index} href={'/(tabs)/vehicle'} asChild>
+        <VStack space="md" className='px-4 pb-32'>
+          {filteredVehicles.length > 0 ? (
+            filteredVehicles.map((vehicle, index) => (
+
+              <Link
+                key={index}
+                className='w-full'
+                href={{
+                  pathname: '/(stack)/vehicle/[id]',
+                  params: { id: vehicle.id }
+                }}
+                asChild
+
+              >
                 <Pressable
-                  className={`p-4 bg-secondary-300 rounded-2xl`}
+                  className={`p-4w-full bg-secondary-300 p-1 rounded-2xl`}
+                  onLongPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+                    allowMultipleSelect()
+                  }}
                   onPress={(e) => {
                     if (isSelecting) {
                       e.preventDefault(); // Impede o redirecionamento
@@ -92,20 +124,31 @@ export default function HomePage() {
                     }
                   }}
                 >
-                  <HStack space="md" className='justify-between items-center'>
+                  <HStack className='w-full h-24 justify-between  items-center'>
                     {isSelecting && (
-                      <AnimatedRadioButton
-                        isSelected={selectedVehicles.has(index)}
-                        onPress={() => toggleSelection(index)}
-                      />
+                      <Box className='w-1/12 items-center justify-center'>
+                        <AnimatedRadioButton
+                          isSelected={selectedVehicles.has(index)}
+                          onPress={() => toggleSelection(index)}
+                        />
+                      </Box>
                     )}
-                    <Image
+                    {(vehicle.image !== undefined ? (<Image
                       source={{ uri: vehicle.image }}
-                      style={{ width: 80, height: 80, borderRadius: 10 }}
-                    />
-                    <VStack>
+                      style={{ width: 84, height: 84, borderRadius: 16 }}
+                    />) : (
+                      <Box
+                        className='bg-secondary-500 w-24 h-full rounded-2xl justify-center items-center flex'
+
+                      >
+                        <Icon as={getVehicleIcon(vehicle.type)} className='text-secondary-300 w-4/6 h-4/6 my-auto' />
+
+                      </Box>
+                    ))}
+
+                    <VStack className='w-7/12 justify-between'>
                       <HStack className='items-center' space='md'>
-                        <Text className="text-secondary-900" size="xl" bold>{vehicle.name}</Text>
+                        <Text className="text-secondary-900" size="lg" numberOfLines={1} ellipsizeMode='tail' bold>{vehicle.name.length > 14 ? `${vehicle.name.slice(0, 14)}...` : vehicle.name}</Text>
                         <Badge size='md' className='gap-1 bg-secondary-200 rounded-2xl'>
                           <BadgeText className='text-secondary-800'>{vehicle.type}</BadgeText>
                           <BadgeIcon className='text-secondary-800' as={getVehicleIcon(vehicle.type)} />
@@ -113,14 +156,30 @@ export default function HomePage() {
                       </HStack>
                       <Text className="text-secondary-500">Odometer: {vehicle.odometer} km</Text>
                       <Text className="text-secondary-500">Oil Change Interval: {vehicle.oilInterval} km</Text>
+
                     </VStack>
-                    <Icon as={ArrowRightFromLineIcon} className='stroke-secondary-600' />
+
+                    {!isSelecting && (<Box className='w-1/12'>
+                      <Icon as={ArrowRightFromLineIcon} className='stroke-secondary-600' />
+                    </Box>)}
                   </HStack>
                 </Pressable>
+
               </Link>
+
             ))
           ) : (
-            <Text className="text-secondary-500">No vehicles added yet.</Text>
+            <Center className='py-28'>
+              <VStack space='md'>
+
+                {searchQuery === '' ? (<Text className="text-secondary-500 text-xl">No vehicles added yet.</Text>) : (<Text className="text-secondary-500 text-xl">Vehicle not found.</Text>)}
+                <Link href={'/(stack)/add'} asChild>
+                  <Button>
+                    <Text className='text-lg text-secondary-100 font-medium font-body '>Add Vehicle</Text>
+                  </Button>
+                </Link>
+              </VStack>
+            </Center>
           )}
         </VStack>
       </ScrollView>

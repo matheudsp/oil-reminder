@@ -1,17 +1,15 @@
 import { Box } from '@/gluestack/ui/box';
 import { Pressable } from '@/gluestack/ui/pressable';
 import { Text } from '@/gluestack/ui/text'
-import Header from './header/Header';
-import { Alert, ScrollView } from 'react-native';
-import { Heading } from '@/gluestack/ui/heading';
+import { Keyboard, ScrollView, TextInput, View } from 'react-native';
 import { FormControl } from '@/gluestack/ui/form-control';
 import { Input, InputField, InputIcon, InputSlot } from '@/gluestack/ui/input';
 import { VStack } from '@/gluestack/ui/vstack';
-import { ArrowDownUp, Bike, Camera, Car, CarFront, CircleAlert, CircleX, Droplets, Focus, Images, Truck } from 'lucide-react-native';
+import { ArrowDownUp, Bike, Camera, Car, CarFront, Check, CircleAlert, CircleX, Droplets, Focus, Images, Info, Truck } from 'lucide-react-native';
 import { Icon } from '@/gluestack/ui/icon';
 import { HStack } from '@/gluestack/ui/hstack';
 import { Center } from '@/gluestack/ui/center';
-import React, { useEffect, useState } from 'react';
+import React, { Ref, useEffect, useRef, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { ImageBackground } from 'react-native';
 import { Actionsheet, ActionsheetBackdrop, ActionsheetContent, ActionsheetIcon, ActionsheetItem, ActionsheetItemText } from '@/gluestack/ui/actionsheet';
@@ -19,8 +17,15 @@ import { Button, ButtonIcon, ButtonText } from '@/gluestack/ui/button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { useVehicleContext } from '../../contexts/VehicleContext';
-import { Toast, ToastDescription, ToastTitle, useToast } from '@/gluestack/ui/toast';
-import { Divider } from '@/gluestack/ui/divider';
+import { useToast } from '@/gluestack/ui/toast';
+import { Spinner } from '@/gluestack/ui/spinner';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useKeyboard } from '@react-native-community/hooks';
+import CustomToast from '../../ui/CustomToast';
+import HeaderWithArrowBack from '../../ui/HeaderWithArrowBack';
+import AnimatedKeyboardButton from '../../ui/AnimatedButtonAboveKeyboard';
+import AnimatedButtonAboveKeyboard from '../../ui/AnimatedButtonAboveKeyboard';
+
 
 const vehicleTypes = [
     {
@@ -37,14 +42,32 @@ const vehicleTypes = [
     }
 ]
 export default function AddPage() {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [modalImageVisible, setModalImageVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
     const [vehicleType, setVehicleType] = useState<string>('Car');
     const [vehicleName, setVehicleName] = useState<string>('');
     const [odometerReading, setOdometerReading] = useState<string>('');
     const [oilChangeInterval, setOilChangeInterval] = useState<string>('');
+    const [vehicleObservation, setVehicleObservation] = useState<string>('');
+    const odometerRef = useRef<TextInput>(null);
+    const oilChangeIntervalRef = useRef<TextInput>(null);
+    const observationRef = useRef<TextInput>(null);
+    const [focusedField, setFocusedField] = useState<string | null>(null);
     const router = useRouter();
     const toast = useToast()
+
+    // Monitoramento do teclado
+    const keyboard = useKeyboard();
+    const isKeyboardVisible = keyboard.keyboardShown; // Estado do teclado (ativo/inativo)
+
+    // Função para controlar o foco entre inputs
+    const handleNext = (nextRef: any) => {
+        if (nextRef && nextRef.current) {
+            nextRef.current.focus();
+        }
+    };
+
     const { loadVehicles } = useVehicleContext();
     useEffect(() => {
         (async () => {
@@ -55,22 +78,11 @@ export default function AddPage() {
                     render: ({ id }) => {
                         const toastId = "toast-" + id
                         return (
-                            <Toast
-                                nativeID={toastId}
-                                className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
-                            >
-
-                                <Icon
-                                    as={CircleAlert}
-                                    size="xl"
-                                    className="stroke-secondary-200"
-                                />
-                                <Divider
-                                    orientation="vertical"
-                                    className="h-[30px] bg-secondary-200"
-                                />
-                                <ToastTitle size="md" className='text-secondary-200'>We need permission to access the camera.</ToastTitle>
-                            </Toast>
+                            CustomToast({
+                                toastId: toastId,
+                                icon: CircleAlert,
+                                message: 'We need permission to access the camera.'
+                            })
                         )
                     }
                 })
@@ -83,22 +95,11 @@ export default function AddPage() {
                     render: ({ id }) => {
                         const toastId = "toast-" + id
                         return (
-                            <Toast
-                                nativeID={toastId}
-                                className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
-                            >
-
-                                <Icon
-                                    as={CircleAlert}
-                                    size="xl"
-                                    className="stroke-secondary-200"
-                                />
-                                <Divider
-                                    orientation="vertical"
-                                    className="h-[30px] bg-secondary-200"
-                                />
-                                <ToastTitle size="md" className='text-secondary-200'>We need permission to access the gallery.</ToastTitle>
-                            </Toast>
+                            CustomToast({
+                                toastId: toastId,
+                                icon: CircleAlert,
+                                message: 'We need permission to access the gallery.'
+                            })
                         )
                     }
                 })
@@ -132,6 +133,13 @@ export default function AddPage() {
         }
     };
 
+    const getNextVehicleId = async () => {
+        const currentId = await AsyncStorage.getItem('@vehicleId');
+        const nextId = currentId ? parseInt(currentId, 10) + 1 : 0; // Incrementa o ID ou começa de 0
+        await AsyncStorage.setItem('@vehicleId', nextId.toString());
+        return nextId;
+    };
+
     const handleAddVehicle = async () => {
         if (!vehicleName || !odometerReading || !oilChangeInterval) {
             toast.show({
@@ -139,31 +147,27 @@ export default function AddPage() {
                 render: ({ id }) => {
                     const toastId = "toast-" + id
                     return (
-                        <Toast
-                            nativeID={toastId}
-                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
-                        >
-
-                            <Icon
-                                as={CircleAlert}
-                                size="xl"
-                                className="stroke-secondary-200"
-                            />
-                            <Divider
-                                orientation="vertical"
-                                className="h-[30px] bg-secondary-200"
-                            />
-                            <ToastTitle size="md" className='text-secondary-200'>Preencha os campos antes de adicionar.</ToastTitle>
-                        </Toast>
+                        CustomToast({
+                            toastId: toastId,
+                            icon: CircleAlert,
+                            message: 'Preencha os campos antes de adicionar.'
+                        })
                     )
                 }
             })
+
             return;
         }
 
+        setIsLoading(true)
+
+        const id = await getNextVehicleId();
+
         const vehicleData = {
+            id: id,
             name: vehicleName,
             type: vehicleType,
+            observation: vehicleObservation,
             odometer: odometerReading,
             oilInterval: oilChangeInterval,
             image: selectedImage
@@ -183,22 +187,11 @@ export default function AddPage() {
                 render: ({ id }) => {
                     const toastId = "toast-" + id
                     return (
-                        <Toast
-                            nativeID={toastId}
-                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
-                        >
-
-                            <Icon
-                                as={CircleAlert}
-                                size="xl"
-                                className="stroke-secondary-200"
-                            />
-                            <Divider
-                                orientation="vertical"
-                                className="h-[30px] bg-secondary-200"
-                            />
-                            <ToastTitle size="md" className='text-secondary-200'>Vehicle added successfully!</ToastTitle>
-                        </Toast>
+                        CustomToast({
+                            toastId: toastId,
+                            icon: Check,
+                            message: 'Vehicle added successfully!'
+                        })
                     )
                 }
             })
@@ -210,46 +203,46 @@ export default function AddPage() {
                 render: ({ id }) => {
                     const toastId = "toast-" + id
                     return (
-                        <Toast
-                            nativeID={toastId}
-                            className="px-5 py-3 gap-4 shadow-soft-1 bg-primary-800 items-center flex-row"
-                        >
-
-                            <Icon
-                                as={CircleAlert}
-                                size="xl"
-                                className="stroke-secondary-200"
-                            />
-                            <Divider
-                                orientation="vertical"
-                                className="h-[30px] bg-secondary-200"
-                            />
-                            <ToastTitle size="md" className='text-secondary-200'>Unable to save vehicle information.</ToastTitle>
-                        </Toast>
+                        CustomToast({
+                            toastId: toastId,
+                            icon: CircleAlert,
+                            message: 'Unable to save vehicle information.'
+                        })
                     )
                 }
             })
+        } finally {
+            setIsLoading(false)
         }
 
         setVehicleName('')
         setVehicleType('Car')
         setOdometerReading('')
         setOilChangeInterval('')
+        setVehicleObservation('')
         setSelectedImage(undefined)
 
     };
 
     return (
         <>
-            <ScrollView showsVerticalScrollIndicator={false} className='px-4 h-full w-full '>
-                <VStack space="xl" className='  pb-32' >
-                    <Header />
-                    <Heading
-                        size='2xl'
-                    >
-                        {"Add Vehicle"}
-                    </Heading>
+            <KeyboardAwareScrollView
+                enableOnAndroid={true}
+                extraHeight={100}
+                extraScrollHeight={100}
+                keyboardOpeningTime={0}
+                resetScrollToCoords={{ x: 0, y: 0 }} // 
+                contentContainerStyle={{ flexGrow: 1 }}
+                showsVerticalScrollIndicator={false}
+            >
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    className='h-full w-full flex-col pb-24 gap-5 px-4'
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    keyboardShouldPersistTaps="handled"
+                >
 
+                    <HeaderWithArrowBack heading='Add Vehicle' />
                     <FormControl>
                         <VStack space="xl">
                             <VStack space="md">
@@ -268,6 +261,9 @@ export default function AddPage() {
                                         type="text"
                                         value={vehicleName}
                                         onChangeText={setVehicleName}
+                                        onFocus={() => setFocusedField('vehicleName')}  // Atualiza o campo em foco
+                                        onBlur={() => setFocusedField(null)}  // Reseta o campo em foco
+
                                     />
                                 </Input>
                             </VStack>
@@ -287,7 +283,7 @@ export default function AddPage() {
                                                         className={` ${vehicle.type === vehicleType ? 'text-secondary-100' : 'text-secondary-500'}`}
                                                     />
                                                     <Text
-                                                        className={`${vehicle.type === vehicleType ? 'text-secondary-100' : 'text-secondary-500'}`}>
+                                                        className={` font-bold ${vehicle.type === vehicleType ? 'text-secondary-100' : 'text-secondary-500'}`}>
                                                         {vehicle.type}</Text>
                                                 </Center>
                                             </VStack>
@@ -313,6 +309,9 @@ export default function AddPage() {
                                         keyboardType='numeric'
                                         value={odometerReading}
                                         onChangeText={setOdometerReading}
+                                        returnKeyType="next"
+                                        onSubmitEditing={() => handleNext(oilChangeIntervalRef)}
+                                        ref={odometerRef}
                                     />
                                     <InputSlot className="pr-3">
                                         <Text className='text-secondary-700'>km</Text>
@@ -338,10 +337,35 @@ export default function AddPage() {
                                         type="text"
                                         value={oilChangeInterval}
                                         onChangeText={setOilChangeInterval}
+                                        onSubmitEditing={() => handleNext(observationRef)}
+                                        ref={oilChangeIntervalRef}
                                     />
                                     <InputSlot className="pr-3">
                                         <Text className='text-secondary-700'>km</Text>
                                     </InputSlot>
+                                </Input>
+
+                            </VStack>
+
+                            <VStack space="md">
+                                <Text size="xl" className="text-secondary-900">Observations</Text>
+                                <Input
+                                    size='xl'
+                                    className='bg-secondary-300 h-24 border-0 rounded-2xl items-start p-2'>
+                                    <InputField
+                                        className='h-24'
+                                        keyboardType='default'
+                                        maxLength={120}
+                                        numberOfLines={3}
+                                        multiline={true}
+                                        textAlignVertical='top'
+                                        placeholder="Ex: Only use synthetic oil 4w30"
+                                        type="text"
+                                        value={vehicleObservation}
+                                        onChangeText={setVehicleObservation}
+                                        ref={observationRef}
+
+                                    />
                                 </Input>
 
                             </VStack>
@@ -367,9 +391,17 @@ export default function AddPage() {
                                 </Pressable>
 
                             </VStack>
-                            <Button size="xlg" className='bg-primary-500 py-2 rounded-2xl' onPress={handleAddVehicle}>
-                                <ButtonText className='text-secondary-200'>Adicionar</ButtonText>
-                                <ButtonIcon as={Car} size="xlg" className="stroke-secondary-200" />
+                            <Button size="xlg" className='bg-primary-500 py-2 rounded-2xl' disabled={isLoading} onPress={handleAddVehicle}>
+                                {!isLoading ? (
+                                    <HStack space='sm' className='items-center'>
+                                        <ButtonText className='text-secondary-200'>Add</ButtonText>
+                                        <ButtonIcon as={Car} size="xlg" className="stroke-secondary-200" />
+                                    </HStack>) : (
+                                    <HStack space="sm" className='items-center'>
+                                        <ButtonText className='text-secondary-100'>Please Wait</ButtonText>
+                                        <Spinner className='text-white' />
+                                    </HStack>
+                                )}
                             </Button>
                         </VStack>
 
@@ -377,9 +409,26 @@ export default function AddPage() {
 
 
 
-                </VStack >
 
-            </ScrollView >
+
+                </ScrollView >
+            </KeyboardAwareScrollView>
+
+            {isKeyboardVisible && focusedField !== 'vehicleName' && (
+                <AnimatedButtonAboveKeyboard
+                    isKeyboardVisible={isKeyboardVisible}
+                    keyboardHeight={keyboard.keyboardHeight}
+                    focusedField={focusedField}
+                    odometerRef={odometerRef}
+                    oilChangeIntervalRef={oilChangeIntervalRef}
+                    observationRef={observationRef}
+                    handleNext={handleNext}
+                />
+            )}
+
+
+
+
 
             <Actionsheet isOpen={modalImageVisible} onClose={() => { setModalImageVisible(false) }}>
                 <ActionsheetBackdrop className='bg-black' />

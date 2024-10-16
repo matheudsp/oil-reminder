@@ -1,4 +1,4 @@
-import { useFonts } from 'expo-font';
+
 
 import { GluestackUIProvider } from "@/gluestack/ui/gluestack-ui-provider";
 
@@ -9,32 +9,46 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { VehicleProvider } from './components/contexts/VehicleContext';
+import { Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
+import { useFonts } from "expo-font";
 
-
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  const [fontsLoaded] = useFonts({
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+    Roboto_900Black,
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
   return (
     <GluestackUIProvider mode="light">
       <VehicleProvider>
-        <Stack>
+        <Stack
+          screenOptions={{
+            gestureEnabled: true,
+            animation: 'slide_from_left'
+          }}
+        >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name='(stack)' options={{ headerShown: false }} />
         </Stack>
       </VehicleProvider>
     </GluestackUIProvider>

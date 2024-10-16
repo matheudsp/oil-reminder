@@ -77,6 +77,11 @@ module.exports = {
         },
       },
     },
+    fontFamily:{
+      body: ["Roboto", "sans-serif"],
+      logo: ["Montserrat", "sans-serif"]
+    }
+    ,
     boxShadow: {
       "hard-1": "-2px 2px 8px 0px rgba(38, 38, 38, 0.20)",
       "hard-2": "0px 3px 10px 0px rgba(38, 38, 38, 0.20)",

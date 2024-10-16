@@ -80,7 +80,8 @@ const iconStyle = tva({
       'xl': 'h-6 w-6',
       '2xl': 'h-7 w-7',
       '3xl': 'h-9 w-9',
-      '5xl': 'h-14 w-14'
+      '5xl': 'h-14 w-14',
+      'image': 'h-72 w-72'
     },
   },
 });

@@ -8,8 +8,8 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     
     const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
-    const excludedRoutes = ['vehicle'];
-    const buttonWidth = dimensions.width / (state.routes.length - excludedRoutes.length)
+    
+    const buttonWidth = dimensions.width / (state.routes.length)
     
     
     const onTabbarLayout = (e: LayoutChangeEvent) => {
@@ -36,9 +36,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     
     
     const currentRoute = state.routes[state.index].name;
-    if (currentRoute === 'add' || currentRoute === 'vehicle') {
-        return null; 
-    }
+    
 
     
 
@@ -89,7 +87,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                 };
 
                 return (
-                    !excludedRoutes.includes(route.name) && (
+                   
                     <TabBarButton
                         key={route.name}
                         onPress={onPress}
@@ -99,7 +97,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
                         color={isFocused ? '#FFF' : '#222'}
                         label={label}
                     />
-                )
+                
                 );
             })}
         </View>
@@ -109,7 +107,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 const styles = StyleSheet.create({
     tabbar: {
         position: "absolute",
-        bottom: 20,
+        bottom: 25,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
