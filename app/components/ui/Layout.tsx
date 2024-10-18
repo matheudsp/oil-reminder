@@ -9,7 +9,7 @@ interface ILayout {
 export default function Layout({ children }: ILayout) {
     const height = Dimensions.get('window').height;
 
-    const topHeight = Platform.OS === 'ios' ? height * 0.05 : height * 0.02;
+    const topHeight = Platform.OS === 'ios' ? height * 0.05 : height * 0.03;
 
     return (
         <Box style={{ top: topHeight }}>

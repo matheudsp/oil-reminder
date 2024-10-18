@@ -1,17 +1,13 @@
-
-
 import { GluestackUIProvider } from "@/gluestack/ui/gluestack-ui-provider";
-
-import '@/global.css'
-
+import '@/global.css';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { VehicleProvider } from './components/contexts/VehicleContext';
+import { useFonts } from 'expo-font';
 import { Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
-import { Montserrat_300Light, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
-import { useFonts } from "expo-font";
+import { Montserrat_300Light, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, Montserrat_900Black } from '@expo-google-fonts/montserrat';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +21,8 @@ export default function RootLayout() {
     Montserrat_300Light,
     Montserrat_400Regular,
     Montserrat_600SemiBold,
-    Montserrat_700Bold
+    Montserrat_700Bold,
+    Montserrat_900Black,
   });
 
   useEffect(() => {
@@ -35,7 +32,7 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null;
+    return null
   }
 
   return (
@@ -44,11 +41,11 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             gestureEnabled: true,
-            animation: 'slide_from_left'
+            animation: 'slide_from_left',
           }}
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name='(stack)' options={{ headerShown: false }} />
+          <Stack.Screen name="(stack)" options={{ headerShown: false }} />
         </Stack>
       </VehicleProvider>
     </GluestackUIProvider>

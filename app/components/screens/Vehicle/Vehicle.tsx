@@ -1,7 +1,7 @@
-import { Keyboard, Pressable,ScrollView, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
+import { Keyboard, Pressable, ScrollView, TextInput, TextInputProps, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { VStack } from '@/gluestack/ui/vstack'
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '../../ui/DatePicker'
 import { Box } from '@/gluestack/ui/box'
 import { Text } from '@/gluestack/ui/text'
 import { Image } from 'react-native'
@@ -15,7 +15,7 @@ import { Button, ButtonText } from '@/gluestack/ui/button'
 import * as Calendar from 'expo-calendar';
 import { useToast } from '@/gluestack/ui/toast'
 import CustomToast from '../../ui/CustomToast'
-import { AlertDialog, AlertDialogBackdrop, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from '@/gluestack/ui/alert-dialog'
+import { AlertDialog, AlertDialogBackdrop, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader } from '@/gluestack/ui/alert-dialog'
 import { Heading } from '@/gluestack/ui/heading'
 import { Input, InputField, InputIcon, InputSlot } from '@/gluestack/ui/input'
 import { Badge, BadgeIcon, BadgeText } from '@/gluestack/ui/badge'
@@ -40,7 +40,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
   const [showModal, setShowModal] = React.useState(false)
   const ref = React.useRef(null)
   const modalRef = React.useRef(null)
-  const inputRef = React.useRef<TextInput & TextInputProps>(null); 
+  const inputRef = React.useRef<TextInput & TextInputProps>(null);
   // const topHeight = Platform.OS === 'ios' ? height * 0.06 : height * 0.02;
 
   const currentVehicle = vehicles.find(v => v.id === vehicle.id) || vehicle;
@@ -130,7 +130,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
         startDate: new Date(reminderDate),
         endDate: new Date(reminderDate.getTime() + 60 * 60 * 1000), // Evento de 1 hora
         timeZone: 'GMT',
-        notes: `Check oil pressure.`,
+        notes: vehicle.observation,
         calendarId: defaultCalendar.id,
       };
 
@@ -179,132 +179,132 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
 
   return (
     <>
-     <KeyboardAwareScrollView
-                enableOnAndroid={true}
-                extraHeight={20}
-                extraScrollHeight={20}
-                keyboardOpeningTime={0}
-                resetScrollToCoords={{ x: 0, y: 0 }} // 
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}
-            >
-      <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full '
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        extraHeight={20}
+        extraScrollHeight={20}
+        keyboardOpeningTime={0}
+        resetScrollToCoords={{ x: 0, y: 0 }} // 
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
       >
-        <VStack space='xl' className=''>
-          <Box style={{ width: '100%', height: height * 0.25, overflow: 'hidden', position: 'relative' }}>
-            {vehicle.image !== undefined ? (
-              <Image
-                source={{ uri: vehicle.image }}
-                style={{ width: '100%', height: height * 0.25, position: 'absolute', overflow: 'hidden' }}
-                resizeMode='cover'
-              />
-            ) : (
-              <Box
-                style={{ width: '100%', height: height * 0.25, position: 'absolute', overflow: 'hidden' }}
-                className='bg-secondary-600'
+        <ScrollView showsVerticalScrollIndicator={false} className='h-full w-full '
+        >
+          <VStack space='xl' className=''>
+            <Box style={{ width: '100%', height: height * 0.25, overflow: 'hidden', position: 'relative' }}>
+              {vehicle.image !== undefined ? (
+                <Image
+                  source={{ uri: vehicle.image }}
+                  style={{ width: '100%', height: height * 0.25, position: 'absolute', overflow: 'hidden' }}
+                  resizeMode='cover'
+                />
+              ) : (
+                <Box
+                  style={{ width: '100%', height: height * 0.25, position: 'absolute', overflow: 'hidden' }}
+                  className='bg-secondary-600'
+                >
+                  <Icon
+                    as={getVehicleImage(currentVehicle.type)}
+                    size="image"
+                    className='text-secondary-200 ml-10 p-4'
+
+                  />
+                </Box>
+              )}
+              <Pressable
+                className='z-10 mx-6'
+                style={{ top: height * 0.06 }}
+                onPress={() => { router.push('/(tabs)/') }}
               >
                 <Icon
-                  as={getVehicleImage(currentVehicle.type)}
-                  size="image"
-                  className='text-secondary-200 ml-10 p-4'
+                  as={ArrowLeft}
+                  size='lg'
+                  className='text-secondary-100  p-4'
 
                 />
-              </Box>
-            )}
-            <Pressable
-              className='z-10 mx-6'
-              style={{ top: height * 0.06 }}
-              onPress={() => { router.push('/(tabs)/') }}
-            >
-              <Icon
-                as={ArrowLeft}
-                size='lg'
-                className='text-secondary-100  p-4'
-
-              />
-            </Pressable>
-          </Box>
-          <VStack className='px-6 gap-10'>
-            <HStack space='xs' className='justify-between'>
-              <Text bold size='2xl'>{currentVehicle.name}</Text>
-              <Badge size='lg' className='gap-1 bg-secondary-300 rounded-2xl'>
-                <BadgeText className='text-secondary-800'>{currentVehicle.type}</BadgeText>
-                <BadgeIcon className='text-secondary-800' as={getVehicleIcon(currentVehicle.type)} />
-              </Badge>
-            </HStack>
-
-            <VStack space='xs' className=''>
-              <Text className='uppercase font-medium text-base'>Car Detail</Text>
-              <HStack className='justify-between'>
-                <Text>Kilometers</Text>
-                <Text className='font-medium'>{Number(currentVehicle.odometer).toLocaleString()}
-                  <Text className='text-sm font-normal'> km</Text>
-                </Text>
-              </HStack>
-              <Divider className='my-0.5 bg-secondary-300' />
-              <HStack className='justify-between'>
-                <Text>Change Oil Interval</Text>
-                <Text className='font-medium'>{Number(currentVehicle.oilInterval).toLocaleString()}
-                  <Text className='text-sm font-normal'> km</Text>
-                </Text>
-              </HStack>
-              <Divider className='my-0.5 bg-secondary-300' />
-              <HStack className='justify-between'>
-                <Text>Next Oil Change</Text>
-                <Text className='font-medium'>{(Number(currentVehicle.odometer) + Number(currentVehicle.oilInterval)).toLocaleString()}
-                  <Text className='text-sm font-normal'> km</Text>
-                </Text>
-              </HStack>
-            </VStack>
-
-            <Box className='bg-secondary-300 p-4 h-40 rounded-2xl'>
-              <HStack className='justify-between items-center'>
-                <Text className='text-base font-semibold text-secondary-700'>Observation</Text>
-                <TouchableOpacity onPress={() => {
-                  if (isEditable) {
-                    handleSave();
-                  } else {
-                    handleEdit();
-                  }
-                }}>
-                  <HStack className='items-center justify-center bg-secondary-100 px-2 py-1 rounded-2xl' space='xs'>
-                    {!isEditable ? (
-                      <>
-                        <Text className='text-base text-secondary-800 font-medium'>Edit</Text>
-                        <Icon as={Pencil} size='sm' className='stroke-secondary-700' />
-                      </>
-                    ) : (
-                      <>
-                        <Text className='text-base text-secondary-800 font-medium'>Save</Text>
-                        <Icon as={Check} size='sm' className='stroke-secondary-700' />
-                      </>
-                    )}
-                  </HStack>
-                </TouchableOpacity>
-              </HStack>
-              <Textarea
-                size="md"
-                isReadOnly={false}
-                isInvalid={false}
-                isDisabled={!isEditable}
-                className="w-full h-24 border-0"
-              >
-                <TextareaInput
-                  ref={inputRef}
-                  className='my-auto text-lg font-normal'
-                  placeholder='Without observations'
-                  value={observation}
-                  onChangeText={text => setObservation(text)}
-                  returnKeyType='default'
-                />
-              </Textarea>
+              </Pressable>
             </Box>
+            <VStack className='px-6 gap-10'>
+              <HStack space='xs' className='justify-between'>
+                <Text bold size='2xl'>{currentVehicle.name}</Text>
+                <Badge size='lg' className='gap-1 bg-secondary-300 rounded-2xl'>
+                  <BadgeText className='text-secondary-800'>{currentVehicle.type}</BadgeText>
+                  <BadgeIcon className='text-secondary-800' as={getVehicleIcon(currentVehicle.type)} />
+                </Badge>
+              </HStack>
+
+              <VStack space='xs' className=''>
+                <Text className='uppercase font-medium text-base'>Car Detail</Text>
+                <HStack className='justify-between'>
+                  <Text>Kilometers</Text>
+                  <Text className='font-medium'>{Number(currentVehicle.odometer).toLocaleString()}
+                    <Text className='text-sm font-normal'> km</Text>
+                  </Text>
+                </HStack>
+                <Divider className='my-0.5 bg-secondary-300' />
+                <HStack className='justify-between'>
+                  <Text>Change Oil Interval</Text>
+                  <Text className='font-medium'>{Number(currentVehicle.oilInterval).toLocaleString()}
+                    <Text className='text-sm font-normal'> km</Text>
+                  </Text>
+                </HStack>
+                <Divider className='my-0.5 bg-secondary-300' />
+                <HStack className='justify-between'>
+                  <Text>Next Oil Change</Text>
+                  <Text className='font-medium'>{(Number(currentVehicle.odometer) + Number(currentVehicle.oilInterval)).toLocaleString()}
+                    <Text className='text-sm font-normal'> km</Text>
+                  </Text>
+                </HStack>
+              </VStack>
+
+              <Box className='bg-secondary-300 p-4 h-40 rounded-2xl'>
+                <HStack className='justify-between items-center'>
+                  <Text className='text-base font-semibold text-secondary-700'>Observation</Text>
+                  <TouchableOpacity onPress={() => {
+                    if (isEditable) {
+                      handleSave();
+                    } else {
+                      handleEdit();
+                    }
+                  }}>
+                    <HStack className='items-center justify-center bg-secondary-100 px-2 py-1 rounded-2xl' space='xs'>
+                      {!isEditable ? (
+                        <>
+                          <Text className='text-base text-secondary-800 font-medium'>Edit</Text>
+                          <Icon as={Pencil} size='sm' className='stroke-secondary-700' />
+                        </>
+                      ) : (
+                        <>
+                          <Text className='text-base text-secondary-800 font-medium'>Save</Text>
+                          <Icon as={Check} size='sm' className='stroke-secondary-700' />
+                        </>
+                      )}
+                    </HStack>
+                  </TouchableOpacity>
+                </HStack>
+                <Textarea
+                  size="md"
+                  isReadOnly={!isEditable}
+                  className="w-full h-24 border-0"
+
+                >
+                  <TextareaInput
+
+                    ref={inputRef}
+                    className='my-auto read-only:text-secondary-800 text-secondary-800 text-lg font-normal'
+                    placeholder='Without observations'
+                    value={observation}
+                    onChangeText={text => setObservation(text)}
+                    returnKeyType='default'
+                  />
+                </Textarea>
+              </Box>
 
 
+            </VStack>
           </VStack>
-        </VStack>
 
-      </ScrollView>
+        </ScrollView>
       </KeyboardAwareScrollView>
 
       <VStack space='md' style={{ bottom: (height * 0.03) }} className='px-6'>
@@ -343,13 +343,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
               <Text className='text-base font-medium'>Select a date for your reminder</Text>
               <Center>
 
-                <DateTimePicker
-                  value={reminderDate}
-                  mode="datetime"
-                  themeVariant={"light"}
-                  display="default"
-                  onChange={(event, date) => setReminderDate(date || reminderDate)}
-                />
+                <DateTimePicker reminderDate={reminderDate} setReminderDate={setReminderDate} />
               </Center>
             </VStack>
 

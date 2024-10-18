@@ -23,7 +23,7 @@ export default function Collapsible({ children, title }: PropsWithChildren & { t
                 />
                 <Text className='font-semibold text-xl text-secondary-800'>{title}</Text>
             </TouchableOpacity>
-            {isOpen && <Box className='mt-[6px] ml-6'>{children}</Box>}
+            {isOpen && <Box className='mt-[6px] ml-6 py-2'>{children}</Box>}
         </Box>
     );
 }

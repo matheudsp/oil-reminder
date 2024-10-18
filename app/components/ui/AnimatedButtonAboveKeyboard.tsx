@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Keyboard, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Keyboard, TouchableOpacity, Platform } from 'react-native';
 import { Box } from '@/gluestack/ui/box';
 import { useSharedValue, useAnimatedStyle, withSpring, withTiming } from 'react-native-reanimated';
 import Animated, { Easing } from 'react-native-reanimated';
@@ -10,6 +10,7 @@ const AnimatedButtonAboveKeyboard = ({ isKeyboardVisible, keyboardHeight, focuse
     const scale = useSharedValue(0);
     const opacity = useSharedValue(0);
 
+    const buttonY = Platform.OS === 'ios' ? keyboardHeight + 48 : keyboardHeight * 0.15;
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [{ scale: scale.value }],
         opacity: opacity.value,
@@ -46,7 +47,7 @@ const AnimatedButtonAboveKeyboard = ({ isKeyboardVisible, keyboardHeight, focuse
     return (
         <Box style={{
             position: 'absolute',
-            bottom: keyboardHeight + 50,
+            bottom: buttonY,
             right: 5,
             justifyContent: 'center',
             alignItems: 'center',

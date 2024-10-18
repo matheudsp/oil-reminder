@@ -13,33 +13,53 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX"
+      },
       "supportsTablet": true,
-      "infoPlist":{
-        "NSCalendarsUsageDescription": "This app needs access to your calendar to add reminders for your vehicle."
+      "bundleIdentifier": "com.matheudsp.oilreminder",
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "This app needs access to your calendar to add reminders for your vehicle.",
+        "NSCameraUsageDescription": "This app needs access to your camera to capture images.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to save images."
       }
     },
     "android": {
-      "permissions": ["READ_CALENDAR", "WRITE_CALENDAR"],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7557948505846700~2041766096"
+      },
+      "permissions": [
+        "READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      },
+      "package": "com.matheudsp.oilreminder"
     },
     "plugins": [
       "expo-router",
       "expo-font",
-      ["expo-calendar",
-      {
-        "calendarPermission": "Allow $(PRODUCT_NAME) to access your calendar"
-      }]
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Allow $(PRODUCT_NAME) to access your calendar"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8b4de2ed-9227-41a0-9bf9-ff6d821d726e"
+      }
     }
   }
 }

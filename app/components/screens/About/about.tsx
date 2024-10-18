@@ -11,13 +11,14 @@ import { ScrollView, TouchableOpacity } from 'react-native';
 import Collapsible from '../../ui/Collapsible';
 import { Icon } from '@/gluestack/ui/icon';
 import { Check, Coffee, ExternalLink, Settings } from 'lucide-react-native';
-import { Linking } from 'react-native'; 
+import { Linking } from 'react-native';
 import { Button, ButtonText } from '@/gluestack/ui/button';
 import { Center } from '@/gluestack/ui/center';
 import * as Clipboard from 'expo-clipboard';
 import { Modal, ModalBackdrop, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@/gluestack/ui/modal';
 import { useToast } from '@/gluestack/ui/toast';
 import CustomToast from '../../ui/CustomToast';
+
 
 
 export default function AboutPage() {
@@ -90,8 +91,8 @@ export default function AboutPage() {
 
             <VStack space='md'>
               <Link onPress={() => {
-                  const mailtoUrl = `mailto:mdsp.personal@gmail.com`;
-                  Linking.openURL(mailtoUrl);
+                const mailtoUrl = `mailto:mdsp.personal@gmail.com`;
+                Linking.openURL(mailtoUrl);
               }}>
                 <HStack space='sm' className='items-center'>
                   <LinkText className='text-lg font-medium  text-secondary-700'>
@@ -132,6 +133,19 @@ export default function AboutPage() {
                 I'm looking for ways to improve Oil Reminder. Some improvements I am considering include:
               </Text>
 
+              <HStack space='md'>
+                <Text className="text-secondary-800">✅</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Add other languagues to app UI.</Text>
+              </HStack>
+
+              <HStack space='md'>
+                <Text className="text-secondary-800">✅</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Add dark theme.</Text>
+              </HStack>
+              <HStack space='md'>
+                <Text className="text-secondary-800">✅</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Export data function to import in other phone.</Text>
+              </HStack>
 
               <HStack space='md'>
                 <Text className="text-secondary-800">✅</Text>
@@ -161,6 +175,8 @@ export default function AboutPage() {
 
         </VStack>
       </ScrollView >
+
+      
 
       <Modal
         isOpen={showModal}
