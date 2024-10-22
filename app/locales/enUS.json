@@ -1,4 +1,5 @@
-{
+{   
+    "language_title": "English - United States",
     "vehicles":"Vehicles",
     "about":"About",
     "confirm_select":"OK",
@@ -15,9 +16,9 @@
     "vehicle_name":"Vehicle Name",
     "vehicle_name_placeholder": "Name or car plate of vehicle",
     "vehicle_type":"Vehicle Type",
-    "vehicle_type_car":"Car",
-    "vehicle_type_motorcycle":"Motorcycle",
-    "vehicle_type_truck":"Truck",
+    "Car":"Car",
+    "Truck":"Truck",
+    "Motorcycle":"Motorcycle",
     "odometer_reading":"Odometer Reading",
     "odometer_reading_placeholder":"Current mileage",
     "observations":"Observations",
@@ -28,6 +29,14 @@
     "loading_button":"Please Wait",
     "take_photo":"Take Photo",
     "choose_from_gallery":"Choose from Gallery",
+    "alert_vehicle_added":"Vehicle added successfully!",
+    "alert_vehicle_failed":"Unable to save vehicle information.",
+    "alert_empty_field":"Fill in the fields before adding.",
+    "alert_camera_permission":"We need permission to access the camera.",
+    "alert_gallery_permission":"We need permission to access the gallery.",
+    "alert_calendar_permission":"Calendar permission is required to add reminders.",
+    "alert_event_added":"Event added in your calendar!",
+    "alert_event_failed":"Failed to add event to calendar.",
 
     "about_me_title":"About me",
     "my_links_title":"My links",
@@ -43,11 +52,30 @@
     "future_improvements_5":"Transform Oil Reminder into an online app with a login system, allowing users to access their information and settings on different devices.",
     "buy_me_a_coffe":"Buy me a coffee!",
     "modal-buy-me-a-coffe":"Paste this PIX key into your bank app",
+    "copy_to_clipboard_successfully":"PIX Key copied to clipboard!",
     "cancel":"Cancel",
     "copy_to_clipboard":"Copy To Clipboard",
 
 
-    "preferences":"Preferences"
+    "vehicle_detail":"Vehicle Detail",
+    "kilometers":"Kilometers",
+    "next_oil_change":"Next Oil Change",
+    "edit_button":"Edit",
+    "save_button":"Save",
+    "done_button":"Done",
+    "add_reminder":"Add Reminder",
+    "add_reminder_info_modal":"Select a date for your reminder.",
+    "oil_changed":"I changed the oil",
+    "oil_been_changed":"Has the oil been changed?",
+    "oil_been_changed_info_modal":"Please enter the odometer and confirm that you wish to proceed.",
+
+
+    "preferences":"Preferences",
+    "appearance":"Appearance",
+    "in_progress":"In progress",
+    "language":"Language",
+    "choose_language":"Choose the language"
+
     
 
 }

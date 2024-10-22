@@ -29,15 +29,15 @@ import i18n from '@/app/config/i18n';
 
 const vehicleTypes = [
     {
-        type: i18n.t('vehicle_type_car'),
+        type: (i18n.t('Car')),
         Icon: Car
     },
     {
-        type: i18n.t('vehicle_type_motorcycle'),
+        type: (i18n.t('Motorcycle')),
         Icon: Bike
     },
     {
-        type: i18n.t('vehicle_type_truck'),
+        type: (i18n.t('Truck')),
         Icon: Truck
     }
 ]
@@ -81,7 +81,7 @@ export default function AddPage() {
                             CustomToast({
                                 toastId: toastId,
                                 icon: CircleAlert,
-                                message: 'We need permission to access the camera.'
+                                message: (i18n.t('alert_camera_permission'))
                             })
                         )
                     }
@@ -98,7 +98,7 @@ export default function AddPage() {
                             CustomToast({
                                 toastId: toastId,
                                 icon: CircleAlert,
-                                message: 'We need permission to access the gallery.'
+                                message: (i18n.t('alert_gallery_permission'))
                             })
                         )
                     }
@@ -150,7 +150,7 @@ export default function AddPage() {
                         CustomToast({
                             toastId: toastId,
                             icon: CircleAlert,
-                            message: 'Preencha os campos antes de adicionar.'
+                            message: (i18n.t('alert_empty_field'))
                         })
                     )
                 }
@@ -190,7 +190,7 @@ export default function AddPage() {
                         CustomToast({
                             toastId: toastId,
                             icon: Check,
-                            message: 'Vehicle added successfully!'
+                            message: (i18n.t('alert_vehicle_added'))
                         })
                     )
                 }
@@ -206,7 +206,7 @@ export default function AddPage() {
                         CustomToast({
                             toastId: toastId,
                             icon: CircleAlert,
-                            message: 'Unable to save vehicle information.'
+                            message: (i18n.t('alert_vehicle_failed'))
                         })
                     )
                 }

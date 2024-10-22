@@ -161,7 +161,7 @@ export default function HomePage() {
                         <HStack className='items-center' space='md'>
                           <Text className="text-secondary-900" size="lg" numberOfLines={1} ellipsizeMode='tail' bold>{vehicle.name.length > 14 ? `${vehicle.name.slice(0, 14)}...` : vehicle.name}</Text>
                           <Badge size='md' className='gap-1 bg-secondary-200 rounded-2xl'>
-                            <BadgeText className='text-secondary-800'>{vehicle.type}</BadgeText>
+                            <BadgeText className='text-secondary-800'>{i18n.t(`${vehicle.type}`)}</BadgeText>
                             <BadgeIcon className='text-secondary-800' as={getVehicleIcon(vehicle.type)} />
                           </Badge>
                         </HStack>

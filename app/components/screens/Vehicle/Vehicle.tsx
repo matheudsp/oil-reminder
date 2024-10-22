@@ -25,6 +25,7 @@ import { Center } from '@/gluestack/ui/center';
 import { useVehicleContext } from '../../contexts/VehicleContext';
 import { Textarea, TextareaInput } from '@/gluestack/ui/textarea';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import i18n from '@/app/config/i18n'
 
 const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
   const { updateObservation, updateOdometerReading, vehicles } = useVehicleContext();
@@ -110,7 +111,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
               CustomToast({
                 toastId: toastId,
                 icon: CircleAlert,
-                message: 'Calendar permission is required to add reminders.'
+                message: (i18n.t('alert_calendar_permission'))
               })
             )
           }
@@ -147,7 +148,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
             CustomToast({
               toastId: toastId,
               icon: CircleAlert,
-              message: 'Event added in your calendar!'
+              message: (i18n.t('alert_event_added'))
             })
           )
         }
@@ -162,7 +163,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
             CustomToast({
               toastId: toastId,
               icon: CircleAlert,
-              message: 'Failed to add event to calendar.'
+              message: (i18n.t('alert_event_failed'))
             })
           )
         }
@@ -228,29 +229,29 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
               <HStack space='xs' className='justify-between'>
                 <Text bold size='2xl'>{currentVehicle.name}</Text>
                 <Badge size='lg' className='gap-1 bg-secondary-300 rounded-2xl'>
-                  <BadgeText className='text-secondary-800'>{currentVehicle.type}</BadgeText>
+                  <BadgeText className='text-secondary-800'>{i18n.t(`${currentVehicle.type}`)}</BadgeText>
                   <BadgeIcon className='text-secondary-800' as={getVehicleIcon(currentVehicle.type)} />
                 </Badge>
               </HStack>
 
               <VStack space='xs' className=''>
-                <Text className='uppercase font-medium text-base'>Car Detail</Text>
+                <Text className='uppercase font-medium text-base'>{i18n.t('vehicle_detail')}</Text>
                 <HStack className='justify-between'>
-                  <Text>Kilometers</Text>
+                  <Text>{i18n.t('kilometers')}</Text>
                   <Text className='font-medium'>{Number(currentVehicle.odometer).toLocaleString()}
                     <Text className='text-sm font-normal'> km</Text>
                   </Text>
                 </HStack>
                 <Divider className='my-0.5 bg-secondary-300' />
                 <HStack className='justify-between'>
-                  <Text>Change Oil Interval</Text>
+                  <Text>{i18n.t('oil_change_interval')}</Text>
                   <Text className='font-medium'>{Number(currentVehicle.oilInterval).toLocaleString()}
                     <Text className='text-sm font-normal'> km</Text>
                   </Text>
                 </HStack>
                 <Divider className='my-0.5 bg-secondary-300' />
                 <HStack className='justify-between'>
-                  <Text>Next Oil Change</Text>
+                  <Text>{i18n.t('next_oil_change')}</Text>
                   <Text className='font-medium'>{(Number(currentVehicle.odometer) + Number(currentVehicle.oilInterval)).toLocaleString()}
                     <Text className='text-sm font-normal'> km</Text>
                   </Text>
@@ -259,7 +260,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
 
               <Box className='bg-secondary-300 p-4 h-40 rounded-2xl'>
                 <HStack className='justify-between items-center'>
-                  <Text className='text-base font-semibold text-secondary-700'>Observation</Text>
+                  <Text className='text-base font-semibold text-secondary-700'>{i18n.t('observations')}</Text>
                   <TouchableOpacity onPress={() => {
                     if (isEditable) {
                       handleSave();
@@ -270,12 +271,12 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
                     <HStack className='items-center justify-center bg-secondary-100 px-2 py-1 rounded-2xl' space='xs'>
                       {!isEditable ? (
                         <>
-                          <Text className='text-base text-secondary-800 font-medium'>Edit</Text>
+                          <Text className='text-base text-secondary-800 font-medium'>{i18n.t('edit_button')}</Text>
                           <Icon as={Pencil} size='sm' className='stroke-secondary-700' />
                         </>
                       ) : (
                         <>
-                          <Text className='text-base text-secondary-800 font-medium'>Save</Text>
+                          <Text className='text-base text-secondary-800 font-medium'>{i18n.t('save_button')}</Text>
                           <Icon as={Check} size='sm' className='stroke-secondary-700' />
                         </>
                       )}
@@ -309,10 +310,10 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
 
       <VStack space='md' style={{ bottom: (height * 0.03) }} className='px-6'>
         <Button className='rounded-2xl h-14' onPress={() => setShowModal(true)} ref={ref}>
-          <ButtonText className='font-medium font-logo text-secondary-100 '>Add Reminder</ButtonText>
+          <ButtonText className='font-medium font-logo text-secondary-100 '>{i18n.t('add_reminder')}</ButtonText>
         </Button>
         <Button className='rounded-2xl h-14 bg-secondary-900' onPress={() => setShowAlertDialog(true)}>
-          <ButtonText className='font-medium font-logo text-secondary-100 p-2'>Done</ButtonText>
+          <ButtonText className='font-medium font-logo text-secondary-100 p-2'>{i18n.t('oil_changed')}</ButtonText>
         </Button>
       </VStack>
 
@@ -328,7 +329,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
         <ModalContent className='bg-secondary-100 border-0 rounded-2xl'>
           <ModalHeader>
             <Heading size="md" className="text-typography-950">
-              Add Reminder
+            {i18n.t('add_reminder')}
             </Heading>
             <ModalCloseButton>
               <Icon
@@ -340,7 +341,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
           </ModalHeader>
           <ModalBody >
             <VStack space='md'>
-              <Text className='text-base font-medium'>Select a date for your reminder</Text>
+              <Text className='text-base font-medium'>{i18n.t('add_reminder_info_modal')}</Text>
               <Center>
 
                 <DateTimePicker reminderDate={reminderDate} setReminderDate={setReminderDate} />
@@ -357,13 +358,13 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
                 setShowModal(false)
               }}
             >
-              <ButtonText>Cancel</ButtonText>
+              <ButtonText>{i18n.t('cancel')}</ButtonText>
             </Button>
             <Button
               className='w-5/12'
               onPress={addEventToCalendar}
             >
-              <ButtonText className='text-secondary-100'>Add</ButtonText>
+              <ButtonText className='text-secondary-100'>{i18n.t('add_button')}</ButtonText>
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -374,15 +375,15 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
         <AlertDialogContent className='bg-secondary-100 border-0'>
           <AlertDialogHeader>
             <Heading className="text-typography-950 font-semibold" size="md">
-              Has the oil been changed?
+            {i18n.t('oil_been_changed')}
             </Heading>
           </AlertDialogHeader>
           <AlertDialogBody scrollEnabled={false} className="mt-3 mb-4">
             <VStack space='md'>
               <Text size="sm" >
-                Please enter the odometer and confirm that you wish to proceed.
+              {i18n.t('oil_been_changed_info_modal')}
               </Text>
-              <Text size="md" className="text-secondary-900 font-medium">Odometer Reading</Text>
+              <Text size="md" className="text-secondary-900 font-medium">{i18n.t('odometer_reading')}</Text>
               <Input
                 size='lg'
                 className='bg-secondary-300 border-0 rounded-2xl'>
@@ -394,7 +395,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
                 </InputSlot>
                 <InputField
                   maxLength={10}
-                  placeholder="Current mileage"
+                  placeholder={i18n.t('odometer_reading_placeholder')}
                   type="text"
                   keyboardType='numeric'
                   value={odometerReading}
@@ -415,13 +416,13 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
               onPress={handleClose}
               size="md"
             >
-              <ButtonText>Cancel</ButtonText>
+              <ButtonText>{i18n.t('cancel')}</ButtonText>
             </Button>
             <Button
               size="md"
               onPress={() => updateOdometer(currentVehicle.id, odometerReading)}
             >
-              <ButtonText className='text-secondary-100'>Done</ButtonText>
+              <ButtonText className='text-secondary-100'>{i18n.t('done_button')}</ButtonText>
             </Button>
 
           </AlertDialogFooter>

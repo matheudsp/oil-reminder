@@ -18,7 +18,7 @@ import * as Clipboard from 'expo-clipboard';
 import { Modal, ModalBackdrop, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@/gluestack/ui/modal';
 import { useToast } from '@/gluestack/ui/toast';
 import CustomToast from '../../ui/CustomToast';
-import LanguageSwitcher from '../../ui/LanguagueSwitcher';
+
 import i18n from '@/app/config/i18n';
 import { router } from 'expo-router';
 
@@ -45,7 +45,7 @@ export default function AboutPage() {
           CustomToast({
             toastId: toastId,
             icon: Check,
-            message: 'PIX Key copied to clipboard!'
+            message: (i18n.t('copy_to_clipboard_successfully'))
           })
         )
       }
