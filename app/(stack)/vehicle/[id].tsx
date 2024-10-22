@@ -9,10 +9,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Spinner } from '@/gluestack/ui/spinner';
 import { useLocalSearchParams } from 'expo-router';
 import { IVehicle } from '@/app/types/vehicle.interface';
+import { useLanguage } from '@/app/components/contexts/LanguageContext';
 
 export default function vehicle() {
   const { id } = useLocalSearchParams();
-
+  useLanguage()
   const [vehicleData, setVehicleData] = useState<IVehicle>();
 
   useEffect(() => {
@@ -38,9 +39,9 @@ export default function vehicle() {
     return <Spinner />
   }
   return (
-    
-      <Vehicle vehicle={vehicleData} />
-    
+
+    <Vehicle vehicle={vehicleData} />
+
   );
 }
 

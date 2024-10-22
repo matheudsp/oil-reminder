@@ -13,9 +13,6 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX"
-      },
       "supportsTablet": true,
       "bundleIdentifier": "com.matheudsp.oilreminder",
       "infoPlist": {
@@ -25,9 +22,6 @@
       }
     },
     "android": {
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-7557948505846700~2041766096"
-      },
       "permissions": [
         "READ_CALENDAR",
         "WRITE_CALENDAR",
@@ -44,6 +38,7 @@
       "package": "com.matheudsp.oilreminder"
     },
     "plugins": [
+      "expo-localization",
       "expo-router",
       "expo-font",
       [
@@ -51,7 +46,15 @@
         {
           "calendarPermission": "Allow $(PRODUCT_NAME) to access your calendar"
         }
-      ]
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-7557948505846700~2041766096",
+          "iosAppId": "ca-app-pub-xxxxxxxx~xxxxxxxx"
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

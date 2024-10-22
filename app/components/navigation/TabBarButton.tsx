@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { icon } from '@/app/components/constants/icon'
 import { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { IconKeys } from '@/app/components/constants/icon'
+import i18n from '@/app/config/i18n'
 const TabBarButton = ({
     onPress,
     onLongPress,
@@ -65,7 +66,7 @@ const TabBarButton = ({
             <Animated.Text
                 className="text-xs font-bold"
                 style={[{ color: isFocused ? 'rgb(33 150 243)' : '#222' }, animatedTextStyle]}>
-                {label}
+                {label === 'Vehicles' ? (i18n.t('vehicles')) : (i18n.t('about'))}
             </Animated.Text>
         </Pressable>
     )

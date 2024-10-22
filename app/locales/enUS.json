@@ -1,0 +1,53 @@
+{
+    "vehicles":"Vehicles",
+    "about":"About",
+    "confirm_select":"OK",
+    "select_vehicles":"Select vehicles",
+    "my_vehicles":"My Vehicles",
+    "search_bar_placeholder":"Search for plate or name",
+    "odometer":"Odometer",
+    "oil_change_interval":"Oil Change Interval",
+    "empty_list_vehicles":"No vehicles added yet",
+    "vehicle_not_found":"Vehicle not found",
+    "add_vehicle":"Add Vehicle",
+
+
+    "vehicle_name":"Vehicle Name",
+    "vehicle_name_placeholder": "Name or car plate of vehicle",
+    "vehicle_type":"Vehicle Type",
+    "vehicle_type_car":"Car",
+    "vehicle_type_motorcycle":"Motorcycle",
+    "vehicle_type_truck":"Truck",
+    "odometer_reading":"Odometer Reading",
+    "odometer_reading_placeholder":"Current mileage",
+    "observations":"Observations",
+    "observations_placeholder":"Ex: Only use synthetic oil 4w30",
+    "vehicle_image":"Vehicle Image",
+    "select_image":"Select image",
+    "add_button":"Add",
+    "loading_button":"Please Wait",
+    "take_photo":"Take Photo",
+    "choose_from_gallery":"Choose from Gallery",
+
+    "about_me_title":"About me",
+    "my_links_title":"My links",
+    "app_origin_title":"App origin",
+    "future_improvements_title":"Future improvements",
+    "about_me":"A technology and automotive enthusiast who believes in the importance of taking care of and regularly maintaining vehicles. With a passion for programming and design, the goal is to create solutions that improve users' lives.",
+    "app_origin":"The Oil Reminder was born from a personal frustrating experience. After facing unexpected issues with my vehicle's engine, which had to be rebuilt due to neglecting regular maintenance, I realized the importance of monitoring and taking care of the engine's health.",
+    "future_improvements_0":"I'm looking for ways to improve Oil Reminder. Some improvements I am considering include:",
+    "future_improvements_1":"Add other languagues to app UI.",
+    "future_improvements_2":"Add dark theme.",
+    "future_improvements_3":"Export data function to import in other phone.",
+    "future_improvements_4":"Add features that allow users to view their maintenance history and costs over time, helping them make informed decisions about their vehicle.",
+    "future_improvements_5":"Transform Oil Reminder into an online app with a login system, allowing users to access their information and settings on different devices.",
+    "buy_me_a_coffe":"Buy me a coffee!",
+    "modal-buy-me-a-coffe":"Paste this PIX key into your bank app",
+    "cancel":"Cancel",
+    "copy_to_clipboard":"Copy To Clipboard",
+
+
+    "preferences":"Preferences"
+    
+
+}

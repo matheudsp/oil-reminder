@@ -25,19 +25,19 @@ import CustomToast from '../../ui/CustomToast';
 import HeaderWithArrowBack from '../../ui/HeaderWithArrowBack';
 import AnimatedKeyboardButton from '../../ui/AnimatedButtonAboveKeyboard';
 import AnimatedButtonAboveKeyboard from '../../ui/AnimatedButtonAboveKeyboard';
-
+import i18n from '@/app/config/i18n';
 
 const vehicleTypes = [
     {
-        type: 'Car',
+        type: i18n.t('vehicle_type_car'),
         Icon: Car
     },
     {
-        type: 'Motorcycle',
+        type: i18n.t('vehicle_type_motorcycle'),
         Icon: Bike
     },
     {
-        type: 'Truck',
+        type: i18n.t('vehicle_type_truck'),
         Icon: Truck
     }
 ]
@@ -45,7 +45,7 @@ export default function AddPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [modalImageVisible, setModalImageVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
-    const [vehicleType, setVehicleType] = useState<string>('Car');
+    const [vehicleType, setVehicleType] = useState<string>(i18n.t('vehicle_type_car'));
     const [vehicleName, setVehicleName] = useState<string>('');
     const [odometerReading, setOdometerReading] = useState<string>('');
     const [oilChangeInterval, setOilChangeInterval] = useState<string>('');
@@ -59,7 +59,7 @@ export default function AddPage() {
 
     // Monitoramento do teclado
     const keyboard = useKeyboard();
-    const isKeyboardVisible = keyboard.keyboardShown; // Estado do teclado (ativo/inativo)
+    const isKeyboardVisible = keyboard.keyboardShown; 
 
     // Função para controlar o foco entre inputs
     const handleNext = (nextRef: any) => {
@@ -241,12 +241,12 @@ export default function AddPage() {
                     contentContainerStyle={{ flexGrow: 1 }}
                     keyboardShouldPersistTaps="handled"
                 >
-
-                    <HeaderWithArrowBack heading='Add Vehicle' />
+                    
+                    <HeaderWithArrowBack heading={i18n.t('add_vehicle')} />
                     <FormControl>
                         <VStack space="xl">
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Vehicle Name</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('vehicle_name')}</Text>
                                 <Input
                                     size='xl'
                                     className='bg-secondary-300 border-0 rounded-2xl'>
@@ -257,7 +257,7 @@ export default function AddPage() {
                                         />
                                     </InputSlot>
                                     <InputField
-                                        placeholder="Name or car plate of vehicle"
+                                        placeholder={i18n.t('vehicle_name_placeholder')}
                                         type="text"
                                         value={vehicleName}
                                         onChangeText={setVehicleName}
@@ -268,7 +268,7 @@ export default function AddPage() {
                                 </Input>
                             </VStack>
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Vehicle Type</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('vehicle_type')}</Text>
                                 <HStack className='justify-between'>
 
                                     {vehicleTypes.map((vehicle) => (
@@ -292,7 +292,7 @@ export default function AddPage() {
                                 </HStack>
                             </VStack>
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Odometer Reading</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('odometer_reading')}</Text>
                                 <Input
                                     size='xl'
                                     className='bg-secondary-300 border-0 rounded-2xl'>
@@ -304,7 +304,7 @@ export default function AddPage() {
                                     </InputSlot>
                                     <InputField
                                         maxLength={10}
-                                        placeholder="Current mileage"
+                                        placeholder={i18n.t('odometer_reading_placeholder')}
                                         type="text"
                                         keyboardType='numeric'
                                         value={odometerReading}
@@ -320,7 +320,7 @@ export default function AddPage() {
                             </VStack>
 
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Oil Change Interval</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('oil_change_interval')}</Text>
                                 <Input
                                     size='xl'
                                     className='bg-secondary-300 border-0 rounded-2xl'>
@@ -348,7 +348,7 @@ export default function AddPage() {
                             </VStack>
 
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Observations</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('observations')}</Text>
                                 <Input
                                     size='xl'
                                     className='bg-secondary-300 h-24 border-0 rounded-2xl items-start p-2'>
@@ -359,7 +359,7 @@ export default function AddPage() {
                                         numberOfLines={3}
                                         multiline={true}
                                         textAlignVertical='top'
-                                        placeholder="Ex: Only use synthetic oil 4w30"
+                                        placeholder={i18n.t('observations_placeholder')}
                                         type="text"
                                         value={vehicleObservation}
                                         onChangeText={setVehicleObservation}
@@ -371,7 +371,7 @@ export default function AddPage() {
                             </VStack>
 
                             <VStack space="md">
-                                <Text size="xl" className="text-secondary-900">Vehicle Image</Text>
+                                <Text size="xl" className="text-secondary-900">{i18n.t('vehicle_image')}</Text>
                                 <Pressable
                                     className='bg-secondary-300 h-32 rounded-2xl'
                                     onPress={() => setModalImageVisible(true)}>
@@ -386,7 +386,7 @@ export default function AddPage() {
                                             as={Camera}
                                             className={`${!selectedImage ? 'text-secondary-500' : 'text-secondary-100'}`}
                                         />
-                                        {selectedImage === undefined && <Text size='xl' className='text-secondary-500'>Select image</Text>}
+                                        {selectedImage === undefined && <Text size='xl' className='text-secondary-500'>{i18n.t('select_image')}</Text>}
                                     </ImageBackground>
                                 </Pressable>
 
@@ -394,11 +394,11 @@ export default function AddPage() {
                             <Button size="xlg" className='bg-primary-500 py-2 rounded-2xl' disabled={isLoading} onPress={handleAddVehicle}>
                                 {!isLoading ? (
                                     <HStack space='sm' className='items-center'>
-                                        <ButtonText className='text-secondary-200'>Add</ButtonText>
+                                        <ButtonText className='text-secondary-200'>{i18n.t('add_button')}</ButtonText>
                                         <ButtonIcon as={Car} size="xlg" className="stroke-secondary-200" />
                                     </HStack>) : (
                                     <HStack space="sm" className='items-center'>
-                                        <ButtonText className='text-secondary-100'>Please Wait</ButtonText>
+                                        <ButtonText className='text-secondary-100'>{i18n.t('loading_button')}</ButtonText>
                                         <Spinner className='text-white' />
                                     </HStack>
                                 )}
@@ -441,7 +441,7 @@ export default function AddPage() {
                             className='justify-center'
                             onPress={() => { pickImage(true); setModalImageVisible(false) }}>
                             <ActionsheetIcon className='stroke-secondary-900' size='lg' as={Focus} />
-                            <ActionsheetItemText className='text-lg text-secondary-900'>Take Photo</ActionsheetItemText>
+                            <ActionsheetItemText className='text-lg text-secondary-900'>{i18n.t('take_photo')}</ActionsheetItemText>
                         </ActionsheetItem>
 
 
@@ -449,7 +449,7 @@ export default function AddPage() {
                             className='justify-center bg-primary-500 rounded-full'
                             onPress={() => { pickImage(false); setModalImageVisible(false) }}>
                             <ActionsheetIcon className='stroke-secondary-100' size='lg' as={Images} />
-                            <ActionsheetItemText className='text-lg text-secondary-100'>Choose from Gallery</ActionsheetItemText>
+                            <ActionsheetItemText className='text-lg text-secondary-100'>{i18n.t('choose_from_gallery')}</ActionsheetItemText>
                         </ActionsheetItem>
 
                     </Box>

@@ -1,0 +1,53 @@
+{
+    "vehicles": "Veículos",
+    "about": "Sobre o app",
+    "confirm_select": "OK",
+    "select_vehicles": "Selecionar veículos",
+    "my_vehicles": "Meus Veículos",
+    "search_bar_placeholder":"Procurar por nome ou placa",
+    "odometer": "Odômetro",
+    "oil_change_interval": "Intervalo de Troca",
+    "empty_list_vehicles": "Nenhum veículo adicionado ainda",
+    "vehicle_not_found": "Veículo não encontrado",
+    "add_vehicle": "Adicionar Veículo",
+
+
+    
+    "vehicle_name": "Nome do Veículo",
+    "vehicle_name_placeholder": "Nome ou placa do veículo",
+    "vehicle_type": "Tipo de Veículo",
+    "vehicle_type_car": "Carro",
+    "vehicle_type_motorcycle": "Moto",
+    "vehicle_type_truck": "Caminhão",
+    "odometer_reading": "Leitura do Odômetro",
+    "odometer_reading_placeholder":"Quilometragem atual",
+    "observations": "Observações",
+    "observations_placeholder":"Ex: Apenas usar óleo sintético 4w30 ",
+    "vehicle_image": "Imagem do Veículo",
+    "select_image": "Selecionar imagem",
+    "add_button": "Adicionar",
+    "loading_button": "Aguarde",
+    "take_photo": "Tirar Foto",
+    "choose_from_gallery": "Escolher da Galeria",
+    
+
+    "about_me_title": "Sobre mim",
+    "my_links_title": "Meus links",
+    "app_origin_title": "Origem do app",
+    "future_improvements_title": "Implementações futuras",
+    "about_me": "Um entusiasta de tecnologia e automóveis que acredita na importância de cuidar e realizar a manutenção regular dos veículos. Com paixão por programação e design, o objetivo é criar soluções que melhorem a vida dos usuários.",
+    "app_origin": "O Oil Reminder nasceu de uma experiência pessoal frustrante. Após enfrentar problemas inesperados com o motor do meu veículo, que precisou ser reconstruído devido à falta de manutenção regular, percebi a importância de monitorar e cuidar da saúde do motor.",
+    "future_improvements_0": "Estou buscando maneiras de melhorar o Oil Reminder. Algumas melhorias que estou considerando incluem:",
+    "future_improvements_1": "Adicionar outros idiomas à interface do aplicativo.",
+    "future_improvements_2": "Adicionar tema escuro.",
+    "future_improvements_3": "Função de exportar dados para importar em outro celular.",
+    "future_improvements_4": "Adicionar recursos que permitam aos usuários visualizar o histórico de manutenção e os custos ao longo do tempo, ajudando-os a tomar decisões informadas sobre seu veículo.",
+    "future_improvements_5": "Transformar o Oil Reminder em um aplicativo online com sistema de login, permitindo que os usuários acessem suas informações e configurações em diferentes dispositivos.",
+    "buy_me_a_coffe": "Me pague um café!",
+    "modal-buy-me-a-coffe": "Cole essa chave PIX no seu aplicativo bancário",
+    "cancel": "Cancelar",
+    "copy_to_clipboard": "Copiar para área de transferência",
+
+
+    "preferences":"Preferências"
+}

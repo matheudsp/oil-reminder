@@ -8,11 +8,11 @@ import { Heading } from '@/gluestack/ui/heading'
 import { VStack } from '@/gluestack/ui/vstack'
 import { HStack } from '@/gluestack/ui/hstack'
 import { Menu, MenuItem, MenuItemLabel } from '@/gluestack/ui/menu'
-
-import { Button, ButtonIcon, ButtonText } from '@/gluestack/ui/button'
+import { Button, ButtonIcon } from '@/gluestack/ui/button'
 import { Icon } from '@/gluestack/ui/icon'
 import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import i18n from '@/app/config/i18n'
 
 
 interface IHeader {
@@ -29,7 +29,7 @@ const Header: FC<IHeader> = ({ allowMultipleSelect, isSelecting, setSearchQuery 
                 <HStack className='justify-between items-center'>
                     {isSelecting ? (
                         <TouchableOpacity className='p-1' onPress={allowMultipleSelect}>
-                            <Text size='xl' bold>OK</Text>
+                            <Text size='xl' bold>{i18n.t('confirm_select')}</Text>
                         </TouchableOpacity>) : (<Menu
                             className="bg-white border-0 px-6 rounded-2xl shadow-hard-3"
                             offset={5}
@@ -47,7 +47,7 @@ const Header: FC<IHeader> = ({ allowMultipleSelect, isSelecting, setSearchQuery 
                                 textValue="Selection"
                                 className="justify-between"
                             >
-                                <MenuItemLabel size="md" bold>Select vehicles</MenuItemLabel>
+                                <MenuItemLabel size="md" bold>{i18n.t('select_vehicles')}</MenuItemLabel>
                                 <Icon as={CircleCheck} className='stroke-secondary-800' />
                             </MenuItem>
 
@@ -62,7 +62,7 @@ const Header: FC<IHeader> = ({ allowMultipleSelect, isSelecting, setSearchQuery 
                     </Button>
                 </HStack>
                 <VStack space='sm'>
-                    <Heading size="2xl" className="text-secondary-900 text-start">My Vehicles</Heading>
+                    <Heading size="2xl" className="text-secondary-900 text-start">{i18n.t('my_vehicles')}</Heading>
                     <Input
                         size="md"
                         className="border-0 rounded-2xl bg-secondary-300">
@@ -75,7 +75,7 @@ const Header: FC<IHeader> = ({ allowMultipleSelect, isSelecting, setSearchQuery 
                         </InputSlot>
                         <InputField
                             onChangeText={setSearchQuery}
-                            placeholder="Search for plate or name"
+                            placeholder={i18n.t('search_bar_placeholder')}
                             placeholderClassName='text-lg'
                             className='text-secondary-800' />
                     </Input>

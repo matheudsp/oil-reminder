@@ -18,13 +18,20 @@ import * as Clipboard from 'expo-clipboard';
 import { Modal, ModalBackdrop, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@/gluestack/ui/modal';
 import { useToast } from '@/gluestack/ui/toast';
 import CustomToast from '../../ui/CustomToast';
+import LanguageSwitcher from '../../ui/LanguagueSwitcher';
+import i18n from '@/app/config/i18n';
+import { router } from 'expo-router';
+
+
 
 
 
 export default function AboutPage() {
+
   const [showModal, setShowModal] = React.useState(false)
   const toast = useToast()
   const ref = React.useRef(null)
+
 
   const pixKey = "4bbd3c9f-78b4-415f-8783-3bdc9d6fa4b1";
   const copyToClipboard = async () => {
@@ -51,8 +58,10 @@ export default function AboutPage() {
 
         <VStack className="px-5 py-4 flex-1 pb-48" space="lg">
           <HStack className='justify-between items-center'>
-            <Heading size='2xl' className="mb-1">About</Heading>
-            <TouchableOpacity className='p-2  bg-secondary-300 rounded-full'>
+            <Heading size='2xl' className="mb-1">{i18n.t('about')}</Heading>
+            <TouchableOpacity 
+            onPress={() => { router.push('/(stack)/preferences') }}
+            className='p-2  bg-secondary-300 rounded-full'>
               <Icon
                 as={Settings}
                 size='2xl'
@@ -81,13 +90,13 @@ export default function AboutPage() {
 
           <Divider className="my-1 bg-secondary-300" />
 
-          <Collapsible title='About me'>
+          <Collapsible title={i18n.t('about_me_title')}>
             <Text size='md' className='font-medium text-justify text-secondary-800 '>
-              A technology and automotive enthusiast who believes in the importance of taking care of and regularly maintaining vehicles. With a passion for programming and design, the goal is to create solutions that improve users' lives.
+              {i18n.t('about_me')}
             </Text>
           </Collapsible>
 
-          <Collapsible title='My links'>
+          <Collapsible title={i18n.t('my_links_title')}>
 
             <VStack space='md'>
               <Link onPress={() => {
@@ -121,40 +130,40 @@ export default function AboutPage() {
 
           </Collapsible>
 
-          <Collapsible title='App origin'>
+          <Collapsible title={i18n.t('app_origin_title')}>
             <Text size='md' className='font-medium text-justify text-secondary-800 '>
-              The <Text className='text-primary-600 font-medium'>Oil Reminder</Text> was born from a personal frustrating experience. After facing unexpected issues with my vehicle's engine, which had to be rebuilt due to neglecting regular maintenance, I realized the importance of monitoring and taking care of the engine's health.
+              {i18n.t('app_origin')}
             </Text>
           </Collapsible>
 
-          <Collapsible title='Future improvements'>
+          <Collapsible title={i18n.t('future_improvements_title')}>
             <VStack space='md'>
               <Text size='md' className='font-medium text-secondary-800 text-justify'>
-                I'm looking for ways to improve Oil Reminder. Some improvements I am considering include:
+                {i18n.t('future_improvements_0')}
               </Text>
 
               <HStack space='md'>
                 <Text className="text-secondary-800">✅</Text>
-                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Add other languagues to app UI.</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify"> {i18n.t('future_improvements_0')}</Text>
               </HStack>
 
               <HStack space='md'>
                 <Text className="text-secondary-800">✅</Text>
-                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Add dark theme.</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify"> {i18n.t('future_improvements_2')}</Text>
               </HStack>
               <HStack space='md'>
                 <Text className="text-secondary-800">✅</Text>
-                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Export data function to import in other phone.</Text>
-              </HStack>
-
-              <HStack space='md'>
-                <Text className="text-secondary-800">✅</Text>
-                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify">Add features that allow users to view their maintenance history and costs over time, helping them make informed decisions about their vehicle.</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify"> {i18n.t('future_improvements_3')}</Text>
               </HStack>
 
               <HStack space='md'>
                 <Text className="text-secondary-800">✅</Text>
-                <Text size="md" className=" font-medium text-secondary-800 flex-1 text-justify">Transform "Oil Reminder" into an online app with a login system, allowing users to access their information and settings on different devices.</Text>
+                <Text size="md" className=" font-medium  text-secondary-800 flex-1 text-justify"> {i18n.t('future_improvements_4')}</Text>
+              </HStack>
+
+              <HStack space='md'>
+                <Text className="text-secondary-800">✅</Text>
+                <Text size="md" className=" font-medium text-secondary-800 flex-1 text-justify"> {i18n.t('future_improvements_5')}</Text>
               </HStack>
 
             </VStack>
@@ -166,17 +175,18 @@ export default function AboutPage() {
               onPress={() => { setShowModal(true) }}
             >
               <ButtonText className='text-lg text-secondary-100'>
-                Buy me a coffee!
 
+                {i18n.t('buy_me_a_coffe')}
               </ButtonText>
               <Icon as={Coffee} size='md' className=' text-lg  text-secondary-100' />
             </Button>
           </Center>
-
         </VStack>
+
+        {/* <AdBanner /> */}
       </ScrollView >
 
-      
+
 
       <Modal
         isOpen={showModal}
@@ -190,14 +200,14 @@ export default function AboutPage() {
         <ModalContent className="bg-secondary-100 border-0 rounded-2xl">
           <ModalHeader>
             <Heading size="md" className="text-secondary-900">
-              Buy me a coffe!
+              {i18n.t('buy_me_a_coffe')}
             </Heading>
 
           </ModalHeader>
           <ModalBody className='py-4'>
             <VStack space='sm'>
               <Text className="text-base text-secondary-800">
-                Paste this PIX key into your bank app:
+              {i18n.t('modal-buy-me-a-coffe')}:
               </Text>
               <Text bold className='font-logo'>{pixKey}</Text>
             </VStack>
@@ -211,17 +221,19 @@ export default function AboutPage() {
                 setShowModal(false)
               }}
             >
-              <ButtonText>Cancel</ButtonText>
+              <ButtonText>{i18n.t('cancel')}</ButtonText>
             </Button>
             <Button
               className='w-6/12'
               onPress={copyToClipboard}
             >
-              <ButtonText size='sm' className='text-secondary-100 '>Copy To Clipboard</ButtonText>
+              <ButtonText size='sm' className='text-secondary-100 '>{i18n.t('copy_to_clipboard')}</ButtonText>
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      
     </>
   );
 }

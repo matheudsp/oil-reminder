@@ -1,26 +1,28 @@
 import { Box } from '@/gluestack/ui/box';
 import { Text } from '@/gluestack/ui/text';
 import Header from './Header/Header';
-import { ScrollView, Image, RefreshControl, Vibration } from 'react-native';
+import { ScrollView, Image, RefreshControl } from 'react-native';
 import { useEffect, useState } from 'react';
 import { VStack } from '@/gluestack/ui/vstack';
 import { HStack } from '@/gluestack/ui/hstack';
 import { Icon } from '@/gluestack/ui/icon';
-import { Car, Bike, Truck, ArrowRightFromLineIcon, Trash, CarFront } from 'lucide-react-native';
+import { Car, Bike, Truck, ArrowRightFromLineIcon, Trash } from 'lucide-react-native';
 import { Pressable } from '@/gluestack/ui/pressable';
 import { Badge, BadgeIcon, BadgeText } from '@/gluestack/ui/badge';
 import AnimatedRadioButton from '../../ui/RadioAnimated';
-import { Fab, FabIcon, FabLabel } from '@/gluestack/ui/fab';
+import { Fab } from '@/gluestack/ui/fab';
 import { Link } from 'expo-router';
 import { useVehicleContext } from '../../contexts/VehicleContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Center } from '@/gluestack/ui/center';
 import { Button, ButtonText } from '@/gluestack/ui/button';
 import * as Haptics from 'expo-haptics';
-import { Divider } from '@/gluestack/ui/divider';
 import { Spinner } from '@/gluestack/ui/spinner';
+import i18n from '@/app/config/i18n'
+
 
 export default function HomePage() {
+  
   const { vehicles, loadVehicles } = useVehicleContext();
   const [selectedVehicles, setSelectedVehicles] = useState<Set<number>>(new Set());
   const [isSelecting, setIsSelecting] = useState(false);
@@ -163,8 +165,8 @@ export default function HomePage() {
                             <BadgeIcon className='text-secondary-800' as={getVehicleIcon(vehicle.type)} />
                           </Badge>
                         </HStack>
-                        <Text className="text-secondary-500">Odometer: {vehicle.odometer} km</Text>
-                        <Text className="text-secondary-500">Oil Change Interval: {vehicle.oilInterval} km</Text>
+                        <Text className="text-secondary-500">{i18n.t('odometer')}: {vehicle.odometer} km</Text>
+                        <Text className="text-secondary-500">{i18n.t('oil_change_interval')}: {vehicle.oilInterval} km</Text>
 
                       </VStack>
 
@@ -181,10 +183,10 @@ export default function HomePage() {
               <Center className='py-28'>
                 <VStack space='md'>
 
-                  {searchQuery === '' ? (<Text className="text-secondary-500 text-xl">No vehicles added yet.</Text>) : (<Text className="text-secondary-500 text-xl">Vehicle not found.</Text>)}
+                  {searchQuery === '' ? (<Text className="text-secondary-500 text-xl">{i18n.t('empty_list_vehicles')}</Text>) : (<Text className="text-secondary-500 text-xl">{i18n.t('vehicle_not_found')}</Text>)}
                   <Link href={'/(stack)/add'} asChild>
                     <Button>
-                      <ButtonText className='text-lg text-secondary-100 font-semibold font-body '>Add Vehicle</ButtonText>
+                      <ButtonText className='text-lg text-secondary-100 font-semibold font-body '>{i18n.t('add_vehicle')}</ButtonText>
                     </Button>
                   </Link>
                 </VStack>
