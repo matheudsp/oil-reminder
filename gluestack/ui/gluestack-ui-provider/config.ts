@@ -38,6 +38,20 @@ export const config = {
     '--color-accent-700': '245 127 23',
     '--color-accent-800': '239 108 0',
     '--color-accent-900': '230 81 0',
+
+      /* Error */
+      '--color-error-0': '254 233 233',
+      '--color-error-50': '254 226 226',
+      '--color-error-100': '254 202 202',
+      '--color-error-200': '252 165 165',
+      '--color-error-300': '248 113 113',
+      '--color-error-400': '239 68 68',
+      '--color-error-500': '230 53 53',
+      '--color-error-600': '220 38 38',
+      '--color-error-700': '185 28 28',
+      '--color-error-800': '153 27 27',
+      '--color-error-900': '127 29 29',
+      '--color-error-950': '83 19 19',
   }),
   dark: vars({
     /* Primary (Azul) */
@@ -89,5 +103,19 @@ export const config = {
     "--color-typography-800": "64 64 64",
     "--color-typography-900": "38 38 39",
     "--color-typography-950": "23 23 23",
+
+      /* Error */
+      '--color-error-0': '83 19 19',
+      '--color-error-50': '127 29 29',
+      '--color-error-100': '153 27 27',
+      '--color-error-200': '185 28 28',
+      '--color-error-300': '220 38 38',
+      '--color-error-400': '230 53 53',
+      '--color-error-500': '239 68 68',
+      '--color-error-600': '248 113 113',
+      '--color-error-700': '252 165 165',
+      '--color-error-800': '254 202 202',
+      '--color-error-900': '254 226 226',
+      '--color-error-950': '254 233 233',
   }),
 };

@@ -27,17 +27,18 @@ import AnimatedKeyboardButton from '../../ui/AnimatedButtonAboveKeyboard';
 import AnimatedButtonAboveKeyboard from '../../ui/AnimatedButtonAboveKeyboard';
 import i18n from '@/app/config/i18n';
 
+
 const vehicleTypes = [
     {
-        type: (i18n.t('Car')),
+        type: "Car",
         Icon: Car
     },
     {
-        type: (i18n.t('Motorcycle')),
+        type: "Motorcycle",
         Icon: Bike
     },
     {
-        type: (i18n.t('Truck')),
+        type: "Truck",
         Icon: Truck
     }
 ]
@@ -45,7 +46,7 @@ export default function AddPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [modalImageVisible, setModalImageVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
-    const [vehicleType, setVehicleType] = useState<string>(i18n.t('vehicle_type_car'));
+    const [vehicleType, setVehicleType] = useState<string>('Car');
     const [vehicleName, setVehicleName] = useState<string>('');
     const [odometerReading, setOdometerReading] = useState<string>('');
     const [oilChangeInterval, setOilChangeInterval] = useState<string>('');
@@ -54,6 +55,8 @@ export default function AddPage() {
     const oilChangeIntervalRef = useRef<TextInput>(null);
     const observationRef = useRef<TextInput>(null);
     const [focusedField, setFocusedField] = useState<string | null>(null);
+    
+
     const router = useRouter();
     const toast = useToast()
 
@@ -181,7 +184,7 @@ export default function AddPage() {
             await AsyncStorage.setItem('@vehicles', JSON.stringify(vehiclesArray));
             await loadVehicles();
             router.push('/(tabs)/')
-
+            
             toast.show({
                 placement: "top",
                 render: ({ id }) => {
@@ -221,6 +224,8 @@ export default function AddPage() {
         setOilChangeInterval('')
         setVehicleObservation('')
         setSelectedImage(undefined)
+
+        
 
     };
 
@@ -284,7 +289,7 @@ export default function AddPage() {
                                                     />
                                                     <Text
                                                         className={` font-bold ${vehicle.type === vehicleType ? 'text-secondary-100' : 'text-secondary-500'}`}>
-                                                        {vehicle.type}</Text>
+                                                        {i18n.t(`${vehicle.type}`)}</Text>
                                                 </Center>
                                             </VStack>
                                         </Pressable>
@@ -455,6 +460,8 @@ export default function AddPage() {
                     </Box>
                 </ActionsheetContent>
             </Actionsheet>
+
+            
         </>
 
     );

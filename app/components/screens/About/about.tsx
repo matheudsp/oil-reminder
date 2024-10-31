@@ -28,6 +28,8 @@ import { router } from 'expo-router';
 
 export default function AboutPage() {
 
+
+
   const [showModal, setShowModal] = React.useState(false)
   const toast = useToast()
   const ref = React.useRef(null)
@@ -54,14 +56,16 @@ export default function AboutPage() {
 
   return (
     <>
+
+
       <ScrollView className='h-full w-full ' showsVerticalScrollIndicator={false}>
 
         <VStack className="px-5 py-4 flex-1 pb-48" space="lg">
           <HStack className='justify-between items-center'>
             <Heading size='2xl' className="mb-1">{i18n.t('about')}</Heading>
-            <TouchableOpacity 
-            onPress={() => { router.push('/(stack)/preferences') }}
-            className='p-2  bg-secondary-300 rounded-full'>
+            <TouchableOpacity
+              onPress={() => { router.push('/(stack)/preferences') }}
+              className='p-2  bg-secondary-300 rounded-full'>
               <Icon
                 as={Settings}
                 size='2xl'
@@ -183,7 +187,7 @@ export default function AboutPage() {
           </Center>
         </VStack>
 
-        {/* <AdBanner /> */}
+
       </ScrollView >
 
 
@@ -207,7 +211,7 @@ export default function AboutPage() {
           <ModalBody className='py-4'>
             <VStack space='sm'>
               <Text className="text-base text-secondary-800">
-              {i18n.t('modal-buy-me-a-coffe')}:
+                {i18n.t('modal-buy-me-a-coffe')}:
               </Text>
               <Text bold className='font-logo'>{pixKey}</Text>
             </VStack>
@@ -233,7 +237,7 @@ export default function AboutPage() {
         </ModalContent>
       </Modal>
 
-      
+
     </>
   );
 }

@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# Oil Reminder 🚗
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Oil Reminder** é um aplicativo desenvolvido para auxiliar proprietários de veículos a manterem a manutenção em dia. Com ele, você pode registrar a quilometragem atual, definir intervalos de troca de óleo e configurar lembretes para nunca mais esquecer de cuidar do seu veículo!
 
-## Get started
+## 📲 Demonstração
 
-1. Install dependencies
 
+## 📲 Imagens do app
+
+### Tela de Inicial
+![Tela de Login](images/1.png)
+![Tela de Login](images/2.png)
+
+### Tela do Veiculo
+![Tela de Login](images/3.jpeg)
+
+### Tela de Configuracoes 
+![Tela de Login](images/1.jpeg)
+![Tela de Login](images/2.jpeg)
+
+
+Confira a primeira build 1.0 disponível para download:
+
+- **[Baixar pelo site oficial](https://oilreminder.vercel.app/)**
+- **[Download pelo GitHub](https://github.com/matheudsp/oil-reminder/releases/tag/1.0)**
+
+## ✨ Funcionalidades
+
+- **Registro de Quilometragem:** Insira a quilometragem atual do veículo.
+- **Intervalo de Troca de Óleo:** Defina quando o próximo serviço de troca de óleo será necessário.
+- **Lembretes no Calendário:** Agende facilmente um lembrete para a próxima troca de óleo.
+- **Interface Intuitiva:** Simples e eficiente para todos os tipos de motoristas.
+
+## 🚀 Tecnologias Utilizadas
+
+- **React Native & Expo**: Para desenvolvimento e distribuição do app.
+- **Async Storage**: Para armazenar localmente as informações dos usuários.
+- **i18n-js**: Implementação de internacionalização (i18n) para suporte multilíngue.
+- **Bibliotecas de UI**: Utilização de componentes estilizados para experiência otimizada de usuário.
+
+## 🛠️ Instalação e Execução Local
+
+Para rodar o Oil Reminder localmente em modo de desenvolvimento, siga os passos abaixo:
+
+### Pré-requisitos
+
+- Node.js instalado (versão 14 ou superior).
+- Expo CLI (executar `npm install -g expo-cli` caso ainda não tenha).
+
+### Passo a Passo
+
+1. Clone o repositório:
    ```bash
-   npm install
-   ```
+   git clone https://github.com/matheudsp/oil-reminder.git
+   cd oil-reminder
+Instale as dependências:
 
-2. Start the app
+bash
+Copiar código
+npm install
+Inicie o servidor Expo:
 
-   ```bash
-    npx expo start
-   ```
+bash
+Copiar código
+expo start
+Escaneie o QR code com o aplicativo Expo Go no seu dispositivo móvel para rodar o app.
 
-In the output, you'll find options to open the app in a
+📄 Licença
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para mais detalhes.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+📬 Contato
+Desenvolvido por Matheus de Sousa Pereira
+Para mais informações ou sugestões, entre em contato via atendimentoaocliente.valedosol@gmail.com.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Contribuições e feedbacks são sempre bem-vindos! 😄

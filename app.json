@@ -38,23 +38,17 @@
       "package": "com.matheudsp.oilreminder"
     },
     "plugins": [
+     
       "expo-localization",
       "expo-router",
       "expo-font",
+      "expo-localization",
       [
         "expo-calendar",
         {
           "calendarPermission": "Allow $(PRODUCT_NAME) to access your calendar"
         }
-      ],
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-7557948505846700~2041766096",
-          "iosAppId": "ca-app-pub-xxxxxxxx~xxxxxxxx"
-        }
-      ],
-      "expo-localization"
+      ]
     ],
     "experiments": {
       "typedRoutes": true

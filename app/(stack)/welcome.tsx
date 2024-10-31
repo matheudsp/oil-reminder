@@ -1,16 +1,20 @@
-import AboutPage from '@/app/components/screens/About/about';
 import Layout from '../components/ui/Layout';
 import { useLanguage } from '../components/contexts/LanguageContext';
+import WelcomePage from '../components/screens/Welcome/welcome';
 
 
-export default function about() {
+
+
+
+
+export default function welcome() {
   useLanguage()
-
   return (
     <Layout>
-      <AboutPage />
-
+      <WelcomePage/>
     </Layout>
+
+
   );
 }
 

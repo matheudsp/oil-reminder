@@ -293,7 +293,7 @@ const Vehicle: React.FC<IVehicleItem> = ({ vehicle }) => {
 
                     ref={inputRef}
                     className='my-auto read-only:text-secondary-800 text-secondary-800 text-lg font-normal'
-                    placeholder='Without observations'
+                    placeholder={i18n.t('empty_observations')}
                     value={observation}
                     onChangeText={text => setObservation(text)}
                     returnKeyType='default'

@@ -165,8 +165,8 @@ export default function HomePage() {
                             <BadgeIcon className='text-secondary-800' as={getVehicleIcon(vehicle.type)} />
                           </Badge>
                         </HStack>
-                        <Text className="text-secondary-500">{i18n.t('odometer')}: {vehicle.odometer} km</Text>
-                        <Text className="text-secondary-500">{i18n.t('oil_change_interval')}: {vehicle.oilInterval} km</Text>
+                        <Text className="text-secondary-500 md:text-base text-sm">{i18n.t('odometer')}: {vehicle.odometer} km</Text>
+                        <Text className="text-secondary-500 md:text-base text-sm">{i18n.t('oil_change_interval')}: {vehicle.oilInterval} km</Text>
 
                       </VStack>
 
@@ -189,6 +189,7 @@ export default function HomePage() {
                       <ButtonText className='text-lg text-secondary-100 font-semibold font-body '>{i18n.t('add_vehicle')}</ButtonText>
                     </Button>
                   </Link>
+
                 </VStack>
               </Center>
             )}
