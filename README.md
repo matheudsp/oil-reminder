@@ -2,22 +2,22 @@
 
 **Oil Reminder** é um aplicativo desenvolvido para auxiliar proprietários de veículos a manterem a manutenção em dia. Com ele, você pode registrar a quilometragem atual, definir intervalos de troca de óleo e configurar lembretes para nunca mais esquecer de cuidar do seu veículo!
 
-## 📲 Demonstração
+### Tela Inicial
+<div style="display: flex; gap: 10px;">
+  <img src="images/1.png" alt="Tela de Login" height="500">
+  <img src="images/2.png" alt="Tela de Login" height="500">
+</div>
 
+### Tela do Veículo
+<div style="display: flex; gap: 10px;">
+  <img src="images/3.jpeg" alt="Tela do Veículo" height="500">
+</div>
 
-## 📲 Imagens do app
-
-### Tela de Inicial
-![Tela de Login](images/1.png)
-![Tela de Login](images/2.png)
-
-### Tela do Veiculo
-![Tela de Login](images/3.jpeg)
-
-### Tela de Configuracoes 
-![Tela de Login](images/1.jpeg)
-![Tela de Login](images/2.jpeg)
-
+### Tela de Configurações
+<div style="display: flex; gap: 10px;">
+  <img src="images/1.jpeg" alt="Tela de Configurações" height="500">
+  <img src="images/2.jpeg" alt="Tela de Configurações" height="500">
+</div>
 
 Confira a primeira build 1.0 disponível para download:
 
